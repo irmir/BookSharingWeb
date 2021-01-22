@@ -1,2 +1,1 @@
-# BookSharing
-Client side BookSharing
+Client side of BookSharing
