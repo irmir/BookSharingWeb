@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BookAvatar } from './BookAvatar'
+// import { BookAvatar } from './BookAvatar'
 
 import { AuthCard } from '../cards/AuthCard.js'
+import { Counter } from './Counter.js'
+// import { siteReducer } from '../../redux/siteReducer'
 
 
 
@@ -15,10 +17,10 @@ const SalutationComponent = ({ quote, authorQuote }) => {
                 <p className="authorQuote">{authorQuote}</p>
             </div>
             <div className="picture">
-                {/* <BookAvatar /> */}
                 <img src="/img/avatar-booksharing.png"></img>
             </div>
             <AuthCard />
+            <Counter />
         </div >
     )
 }
@@ -26,6 +28,7 @@ const SalutationComponent = ({ quote, authorQuote }) => {
 export const Salutation = connect(
     (state) => ({
         quote: state.site.quote,
-        authorQuote: state.site.authorQuote
+        authorQuote: state.site.authorQuote,
+        description: state.site.description
     })
 )(SalutationComponent)

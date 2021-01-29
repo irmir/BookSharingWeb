@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export const Logo = () => {
+export const Logo = ({width, height}) => {
     
     return (
         <div className="logo">
-            <svg width="943" height="205" viewBox="0 0 943 205" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="logo-svg" width={width} height={height} viewBox="0 0 943 205" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d)">
                     <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="5" width="282" height="131">
                         <ellipse cx="140.725" cy="70.2097" rx="140.725" ry="65.2097" fill="white" />

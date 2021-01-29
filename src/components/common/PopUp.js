@@ -10,7 +10,7 @@ const PopUpComponent = ({searchContent, activePopUp, searchBook, showPopUp}) => 
     //     debugger
     //     showPopUp(searchContent)
     // }, [searchBook])
-    debugger
+    // debugger
     return (
         <div className={ activePopUp ? "pop-up active": "pop-up"}>
             {searchContent}

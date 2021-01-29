@@ -1,9 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-// import { bindActionCreators } from 'redux'
-
-// import {Menu} from './Menu.js'
 
 
 const MenuComponent = ({menuItems}) => {
@@ -14,8 +11,8 @@ const MenuComponent = ({menuItems}) => {
                     {
                         menuItems.map((item) => (
                             <li>
-                                <NavLink to={item.url}>
-                                    {item.name}
+                                <NavLink exact={item.name === "home"} to={item.url}>
+                                    {item.name} 
                                 </NavLink>
                             </li>
                         ))

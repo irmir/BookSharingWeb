@@ -14,7 +14,7 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'CHANGE_INPUT_VALUE': {
-            // debugger
+            debugger
             return {
                 ...state,
                 [action.payload.target.name]: action.payload.target.value
@@ -32,7 +32,7 @@ export const authReducer = (state = initialState, action) => {
             }
         }
 
-        case 'ERROR_LOGIN': {
+        case 'SHOW_ERROR': {
             debugger
             return {
                 ...state,

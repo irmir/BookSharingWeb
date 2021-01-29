@@ -9,19 +9,19 @@ export const getError = (error) => ({
 })
 
 export const searchBook = (searchQuery) => {
-   debugger
+//    debugger
     return async (dispatch) => {
         try {
             const response = await fetch(`/api/books/search/${searchQuery}`)
             const data = await response.json()
-            debugger
+            // debugger
             if (!response.ok) {
                 throw new Error(data.title)
             }
             console.log(data)
             dispatch(getBook(data))
         } catch (error) {
-            debugger
+            // debugger
             dispatch(getError(error))
         }
     }

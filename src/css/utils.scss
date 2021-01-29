@@ -1,0 +1,52 @@
+$beige: rgba(208, 194, 170, 1);
+$white025: rgba(255, 255, 255, 0.25);
+$white: rgba(255, 255, 255, 1);
+$white06: rgba(255, 255, 255, 0.6);
+$white03: rgba(255, 255, 255, 0.3);
+
+@mixin parallelogram () {
+    transform-origin: 0 100%;
+    transform: skew(-45deg);
+    span {
+        transform: skew(45deg);
+        display: block  
+    }
+}
+
+@mixin placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+  }
+
+.head-btn {
+    position: absolute;
+    bottom: -16px;
+    height: 32px;
+    width: 160px;
+    @include parallelogram;
+    text-transform: uppercase;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    border: 0;
+}
+
+// @mixin btn ($width, $height, $bg, $color, $f-s, $l-h) {
+//     width: $width;
+//     height: $height;
+//     background-color: $bg;
+//     color: $color;
+//     font-size: $f-s;
+//     line-height: $l-h;
+// }
+
+// @mixin  btnHover ($b-sh) {
+//     box-shadow: $b-sh;
+// }
+
+// @mixin  btnActive ($b-sh) {
+//     box-shadow: $b-sh;
+// }

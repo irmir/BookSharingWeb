@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const LibraryPage = () => {
+export const SettingsPage = () => {
 
     return (
         <div>
-            LibraryPage
+            SettingsPage
         </div>
     )
 }

@@ -18,21 +18,22 @@ export const HeaderComponent = ({login, showAuthCard}) => {
     })
       
     return (
-        <header>
+      <header>
+        <div className="header container">
             <Menu />
             <div className="auth-buttons">
-                <button onClick={click} value="Sign In">Sign in</button>
-                <button onClick={click} value="Sign Up">Sign up</button>
+                <button onClick={click} value="Sign In" disabled={false} type="button">Sign in</button>
+                <button onClick={click} value="Sign Up" disabled={false}>Sign up</button>
             </div>
             <PopUp />
-        </header>  
+        </div>  
+      </header>
     )
 }
 
 export const Header = connect(
     null,
     (dispatch) => bindActionCreators({
-      login: login,
       showAuthCard: showAuthCard
     }, dispatch)
   )(HeaderComponent);
