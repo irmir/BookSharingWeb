@@ -2,47 +2,42 @@ import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import {Message} from '../common/Message.js'
 import { useHttp } from '../../hooks/http.hook'
-import { changeInputValue, showError, login, register } from '../../redux/authAction'
+import { changeInputValue, showMessage, register, login } from '../../redux/authAction'
+import { useAuth } from '../../hooks/auth.hook.js'
 
-const AuthCardComponent = ({ changeInputValue, showError, register, login, isAuth,
-    loginUser, passwordUser, isCardActive, nameButton, urlImg }) => {
+
+const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
+    loginUser, passwordUser, isCardActive, nameButton, urlImg, login }) => {
     
     const {loading, request, error} = useHttp()
 
     useEffect(() => {
-        showError(error)
-    }, error)
+        if (error) {
+            showMessage(error)
+        }
+    }, [error])
 
     const changeHandler = useCallback((event) => {
         changeInputValue(event)
     })
 
-    const loginHandler = useCallback((event) => {
-        event.preventDefault()
+    const loginHandler = async (event) => {       
         try{
-            debugger
-            const data = request('/api/auth/login', 'GET', {login:loginUser, password:passwordUser})
-            console.log(data)
+            event.preventDefault()
+            const data = await request('http://localhost:5100/api/auth/login', 'POST', {login:loginUser, password:passwordUser})
+           debugger
+            login(data)
+        } catch(e) {} 
+    }
 
-        } catch(e) {}
-    })
-
-    // const loginHandler = useCallback((event) => {
-    //     event.preventDefault()
-    //     login(loginUser, passwordUser)
-    // })
-
-    const registerHandler = useCallback((event) => {
-        event.preventDefault()
+    const registerHandler = async (event) => {
         try{
-            debugger
-            const data = request('/api/auth/register', 'POST', {login:loginUser, password:passwordUser})
-            console.log(data)
-
+            event.preventDefault()
+            const data = request('http://localhost:5100/api/auth/register', 'POST', {login:loginUser, password:passwordUser})
         } catch(e) {}
-    })
-        
+    } 
 
     return (
         <div className={isCardActive ? "auth-card active" : "auth-card"}
@@ -64,6 +59,7 @@ const AuthCardComponent = ({ changeInputValue, showError, register, login, isAut
                 
                 </div>
             </div>
+            <Message />
         </div>
     )
 }
@@ -75,10 +71,12 @@ export const AuthCard = connect(
         passwordUser: state.auth.password,
         isCardActive: state.auth.isCardActive,
         nameButton: state.auth.nameButton,
-        urlImg: state.site.urlImg
+        urlImg: state.site.urlImg,
+        isError: state.auth.isError
     }),
     (dispatch) => bindActionCreators({
         changeInputValue: changeInputValue,
-        showError: showError
+        showMessage: showMessage,
+        login: login
     }, dispatch)
 )(AuthCardComponent)

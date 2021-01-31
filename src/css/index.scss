@@ -48,6 +48,7 @@ header {
     font-size: 24px;
     line-height: 28px;
     text-transform: uppercase;
+    position: relative;
     ul {
       margin: 0;
       padding: 0;
@@ -70,6 +71,38 @@ header {
         color: $white;
       }
     }
+    .profile-avatar {
+      position: absolute;
+      top: 38;
+      right: 0;
+      display: flex;
+      align-items: center;
+        .name {
+          text-align: center;
+          font-size: 18px;
+          line-height: 21px;
+          padding-right: 20px;
+            p {
+              margin: 0;
+            }
+            p:first-child {
+              padding-bottom: 4px;
+            }
+        }
+        .avatar {
+          width: 66px;
+          height: 66px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 1px solid $white06;
+          margin-right: 25px;
+            img {
+              height: 100%;
+              width: 100%;
+              object-fit: cover;
+            }
+        }
+    }
   }
   .auth-buttons button {
     width: 151px;
@@ -82,7 +115,6 @@ header {
         margin-right: 22px;
         border: 1px solid #D0C2AA;
         &:disabled {
-          color: red;
           pointer-events: none
         }
         &:hover {
@@ -122,6 +154,7 @@ header {
   .search {
     text-align: center;
     margin-top: 38px;
+    position: relative;
     input {
       border: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 1);
@@ -152,6 +185,7 @@ header {
       color: rgba(25, 35, 44, 1);
       font-size: 14px;
       line-height: 16px;
+      border: 0;
         &:hover {
           box-shadow: 0px 4px 30px #FFFFFF;
           transition: 0.2s;
@@ -163,6 +197,22 @@ header {
       @include parallelogram;
       }
   }
+}
+
+.search-card {
+  position: absolute;
+  width: 100%;
+  height: 627px;
+  margin-top: 22px;
+  padding: 55px 165px 55px 155px;
+  background: $beige;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 3;
+    .book {
+      padding: 20px 20px 10px;
+    }
 }
 
 .salutation {
@@ -203,28 +253,26 @@ header {
   right: 35px;
 }
 
-.pop-up {
-  display: none;
+.message {
+  display: block;
   position: fixed;
   left: 50%;
-  top: 50%;
-  width: 500px;
-  height: 400px;
+  top: 0;
+  // transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
   background: white;
-}
-
-.pop-up.active {
-  display: block;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
 }
 
 .auth-card.active {
-  /* display: block; */
   opacity: 1;
   transition: 1.3s;
 }
 
 .auth-card {
-  /* display: none; */
   position: absolute;
   left: 0px;
   right: 0px;
@@ -326,6 +374,9 @@ input[type="checkbox"]:checked+span {
   line-height: 27px;
   color: rgba(255, 255, 255, 1);
   text-transform: uppercase;
+    &:disabled {
+      color: red
+    }
 }
 
 .counter {
@@ -343,6 +394,7 @@ input[type="checkbox"]:checked+span {
   border-radius: 10px;
   padding: 0 15px;
   align-items: center;
+  z-index: 4;
 }
 
 .counter .name {

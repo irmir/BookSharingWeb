@@ -10,6 +10,7 @@ import { LibraryPage } from './components/pages/LibraryPage.js'
 import { SettingsPage } from './components/pages/SettingsPage.js'
 import { About } from './components/pages/About.js'
 import { Footer } from './components/common/Footer'
+import { useAuth } from './hooks/auth.hook'
 
 function App () {
 

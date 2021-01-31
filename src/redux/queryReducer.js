@@ -1,6 +1,7 @@
 const initialState = {
     activePopUp: false,
-    searchContent: null
+    searchContent: null,
+    isSearchCardActive: false
 }
 
 export const queryReducer = (state = initialState, action) => {
@@ -12,8 +13,8 @@ export const queryReducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
-                searchContent: action.payload[0].title,
-                activePopUp: true
+                searchContent: action.payload,
+                isSearchCardActive: true
             }
         }
 
