@@ -34,6 +34,7 @@ export const HeaderComponent = ({login, showAuthCard}) => {
 export const Header = connect(
     null,
     (dispatch) => bindActionCreators({
+      // login: login,
       showAuthCard: showAuthCard
     }, dispatch)
   )(HeaderComponent);
