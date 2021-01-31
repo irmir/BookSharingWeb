@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const LibraryPage = () => {
+export const About = () => {
 
     return (
         <div>
-            LibraryPage
+            About
         </div>
     )
 }

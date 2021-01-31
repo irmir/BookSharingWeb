@@ -5,34 +5,41 @@ import { Menu } from './Menu.js'
 
 import { login, showAuthCard } from '../../redux/authAction.js'
 import { bindActionCreators } from 'redux'
-import { PopUp } from './PopUp.js'
+import { ProfileAvatar } from './ProfileAvatar.js'
 
-export const HeaderComponent = ({login, showAuthCard}) => {
+export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 
-    // useEffect(async () => {
-    //     login()
-    //   }, [login])
+  useEffect(() => {
+    debugger
+    login()
+  })
 
-    const click = useCallback((event) => {
-      showAuthCard(event.target.value)
-    })
-      
-    return (
-        <header>
-            <Menu />
-            <div className="auth-buttons">
-                <button onClick={click} value="Sign In">Sign in</button>
-                <button onClick={click} value="Sign Up">Sign up</button>
-            </div>
-            <PopUp />
-        </header>  
-    )
+  const clickHandler = useCallback((event) => {
+    showAuthCard(event.target.value)
+  })
+
+  return (
+    <header>
+      <div className="header container">
+        <Menu />
+        {isAuth ?
+          <ProfileAvatar /> :
+          <div className="auth-buttons">
+            <button onClick={clickHandler} value="Sign In" disabled={false} type="button">Sign in</button>
+            <button onClick={clickHandler} value="Sign Up" disabled={false}>Sign up</button>
+          </div>
+        }
+      </div>
+    </header>
+  )
 }
 
 export const Header = connect(
-    null,
-    (dispatch) => bindActionCreators({
-      login: login,
-      showAuthCard: showAuthCard
-    }, dispatch)
-  )(HeaderComponent);
+  (state) => ({
+    isAuth: state.auth.isAuth
+  }),
+  (dispatch) => bindActionCreators({
+    showAuthCard: showAuthCard,
+    login: login
+  }, dispatch)
+)(HeaderComponent);

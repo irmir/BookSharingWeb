@@ -4,9 +4,10 @@ const initialState = {
     token: null,
     userId: null,
     isAuth: false,
-    searchText: null,
     isCardActive: false,
-    nameButton: null
+    nameButton: null,
+    isMessage: false,
+    textMessage: null,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -14,39 +15,71 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'CHANGE_INPUT_VALUE': {
-            // debugger
             return {
                 ...state,
-                [action.payload.target.name]: action.payload.target.value
+                [action.payload.target.name]: action.payload.target.value,
             }
         }
 
-        case 'LOGIN': {
+        case 'LOGIN': { 
+            const data = JSON.parse(localStorage.getItem('userData'))
 
-            debugger
-            localStorage.setItem('userData', JSON.stringify(action.payload))
+            if (data && data.access_token) {
+
+                return {
+                    ...state,
+                    token: data.access_token,
+                    isAuth: true,
+                    isCardActive: false
+                }
+            }
+
+            if (action.payload) {
+                localStorage.setItem('userData', JSON.stringify(action.payload))           
+                return {
+                    ...state,
+                    token: action.payload.access_token,
+                    isCardActive: false,
+                    isAuth: true,
+                }
+            }
+             return {...state}
             
+        }
+
+        case 'LOGOUT': {
+            localStorage.clear()   
+
             return {
                 ...state,
-                token: action.payload.access_token,
+                token: null,
+                isAuth: false
             }
         }
 
-        case 'ERROR_LOGIN': {
-            debugger
+        case 'SHOW_MESSAGE': {
+
             return {
                 ...state,
-                error: action.payload
+                isMessage: true,
+                textMessage: action.payload
+            }
+        }
+
+        case 'HIDE_MESSAGE': {
+
+            return {
+                ...state,
+                isMessage: false
             }
         }
 
         case 'SHOW_AUTH_CARD': {
-            debugger
+
             return {
                 ...state,
                 nameButton: action.payload,
                 isCardActive: true
-
             }
         }
 

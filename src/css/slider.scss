@@ -1,0 +1,100 @@
+@import './utils.scss';
+
+.slider {
+    margin: 100px auto 220px;
+    .slider-slides {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 43px;
+            .side-book {
+                width: 230 / 1040 * 100%;
+                height: 290px;
+                position: relative;
+                z-index: 2;
+                    button {
+                        position: absolute;
+                        height: 32px;
+                        width: 100px;
+                        @include parallelogram;
+                        background-color: $white03;
+                        top: 50%;
+                        margin-top: -16px;
+                            &:hover {
+                                box-shadow: 0px 4px 30px #FFFFFF;
+                                transition: 0.2s;
+                            }
+                            &:active {
+                                box-shadow: inset 0px 4px 8px #19232C;
+                            }
+                    }
+                    &.left button {
+                        left: -65px;
+                    }
+                    &.right button {
+                        right: -35px;
+                    }
+            }
+            .central-book {
+                width: 566 / 1040 * 100%;
+                height: 747px;
+                border: 2px solid #FFFFFF;
+                border-radius: 10px;
+                display: flex;
+            }
+            a {
+                display: block;
+                border-radius: 10px;
+                width: 505 / 566 * 100%;
+                height: 681 / 747 * 100%;
+                margin: auto;
+                    img {
+                        border-radius: 10px;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        position: relative;
+                        z-index: 2;
+                    }
+            }
+            
+    }
+    .slider-arrows {
+        width: 280 / 1040 * 100%;
+        margin: 0 auto;
+        text-align: center;
+            button {
+                width: 50%;
+                height: 32px;
+                border: 0;
+                @include parallelogram;
+                    &.prev-btn {
+                        background-color: $beige;
+                            &:hover {
+                                box-shadow: 0px 4px 30px #FFFFFF;
+                            }
+                            &:active {
+                                box-shadow: inset 0px 6px 8px #19232C;
+                            }
+                    }
+                    &.next-btn {
+                        background-color: $white06;
+                            &:hover {
+                                box-shadow: 0px 4px 30px #FFFFFF;
+                                background: rgba(255, 255, 255, 0.6);
+                            }
+                            &:active {
+                                background: #FFFFFF;
+                                box-shadow: inset 0px 4px 8px #19232C;
+                            }
+                    }
+            }
+    }
+    .side-slider-arrows {
+        position: absolut;
+        top: 50%;
+    }
+    
+}
+
+
