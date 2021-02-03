@@ -5,12 +5,6 @@
 @import './utils.scss';
 @import './slider.scss';
 
-// .auth-buttons button:disabled {
-//     color: #d2d5db;
-//     background: #e7a20d;
-//     cursor: not-allowed;
-// }
-
 html {
   box-sizing: border-box;
 }
@@ -102,6 +96,15 @@ header {
               object-fit: cover;
             }
         }
+        .logout {
+          // box-shadow: 0px 4px 30px #FFFFFF;
+        }
+        .logout:hover path{
+          fill: #FFFFFF;
+
+          // box-shadow: 0px 4px 30px #FFFFFF;
+          // filter: drop-shadow(0px 2px 15px #FFFFFF);       
+         }
     }
   }
   .auth-buttons button {
@@ -164,18 +167,18 @@ header {
       font-size: 14px;
       line-height: 16px;
       margin-right: 38px;
-      color: rgba(255, 255, 255, 1);
+      color: $white06;
         &::-webkit-input-placeholder {
-          color: #ffffff99;
+          color: $white06;
         }
         &::-moz-placeholder {
-          color: rgba(255, 255, 255, 0.6);
+          color: $white06;
         }
         &:-moz-placeholder {
-          color: rgba(255, 255, 255, 0.6);
+          color: $white06;
         }
         &:-ms-input-placeholder {
-          color: rgba(255, 255, 255, 0.6);
+          color: $white06;
         }
     }
     button {
@@ -470,23 +473,18 @@ input[type="checkbox"]:checked+span {
       }
       button {
         right: 155px;
-        background-color: #dedad3;
+        background: #d7d5d0;
         color: rgba(25,35,44,1);
           @extend .head-btn;
           &:hover {
-            background: rgba(255, 255, 255, 0.6);
             box-shadow: 0px 4px 30px #FFFFFF;
-            // backdrop-filter: blur(20px);
-          }
+          } 
           &:active {
-            background: #FFFFFF;
             box-shadow: inset 0px 4px 8px #19232C;
           }
       }
   }
 }
-
-// section 3
 
 .rental-locations {
   position: relative;
@@ -495,13 +493,13 @@ input[type="checkbox"]:checked+span {
   padding: 80px 20px 100px;
     .rental-locations-header {
       width: 49%;
-      background-color: $white025;
+      background-color: #535a61;
       padding: 29px 20px 29px 120px;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
       margin-bottom: -1px;
       position: absolute;
-      top: -113px;
+      top: -112px;
       right: 0;
         h3 {
           text-align: start;
@@ -549,59 +547,30 @@ input[type="checkbox"]:checked+span {
     }
 }
 
-// footer
-
 .footer {
   padding: 40px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   .wrapper {
     position: relative;
     text-align: center;
-    .btn-footer-head {
-      position: absolute;
-      top: -48px;
-      left: 50px;
-      text-transform: uppercase;
-      font-size: 20px;
-      line-height: 23px;
-      text-align: center;
-      color: #19232c;
-      &:hover .button {
-        background: rgba(255, 255, 255, 0.6);
-        box-shadow: 0px 4px 30px #FFFFFF;
-        // backdrop-filter: blur(20px);
-        cursor: pointer;
-      }
-      &:active .button {
-        background: #FFFFFF;
-        box-shadow: inset 0px 4px 8px #19232C;
-        cursor: pointer;
-      }
-      span {
-        position: relative;
-        z-index: 1;
-        top: -5px;
-        left: 50px;
+      button {
+        right: 155px;
+        position: absolute;
+        background: #a3a7ab;
+        color: rgba(25,35,44,1);
+        @extend .head-btn;
+        top: -56px;
+        left: 0;
+          &:hover {
+            box-shadow: 0px 4px 30px #FFFFFF;
+          } 
+          &:active {
+            box-shadow: inset 0px 4px 8px #19232C;
+          }
           a {
             text-decoration: none;
-            font-size: 20px;
-            line-height: 23px;
-            text-align: center;
-            color: #19232c;
+            color: #19232c;;
           }
-          &:hover {
-            cursor: pointer;
-          }
-      }
-      .button {
-          right: 155px;
-          position: absolute;
-          background-color: #dedad3;
-          color: rgba(25,35,44,1);
-            @extend .head-btn;
-            top: -11px;
-            left: 0;
-        }
     }
     .logo {
       position: relative;
@@ -616,10 +585,16 @@ input[type="checkbox"]:checked+span {
         }
     }
     p {
-      color: $white06;
-      font-size: 24px;
-      line-height: 28px;
       margin: 0;
+        a {
+          color: $white06;
+          font-size: 24px;
+          line-height: 28px;
+          text-decoration: none;
+            &:hover {
+              color: $white;
+            }
+        }
     }
     .social-network {
       width: 455 / 1040 * 100%;
@@ -627,8 +602,32 @@ input[type="checkbox"]:checked+span {
       display: flex;
       justify-content: space-between;
       padding-bottom: 40px;
+        a {
+          width: 60px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+            &:hover{
+              background-color: transparent;
+              border: 1px solid #FFFFFF;
+              border-radius: 8px;
+            }
+            &:active {
+              border: none;
+                path {
+                  fill: #FFFFFF;
+                }
+            }
+        }
     }
   }
+}
+
+.slider-slides a {
+  font-size: 50px;
+  text-decoration: none;
+  color: white;
 }
 
 
@@ -683,8 +682,8 @@ input[type="checkbox"]:checked+span {
 
 /* color:  rgba(25, 35, 44, 0.5) */
 
-.my-map {
-  width: 100vw;
-  height: 100vh;
-}
+// .my-map {
+//   width: 100vw;
+//   height: 100vh;
+// }
 

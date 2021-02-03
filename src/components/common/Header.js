@@ -7,7 +7,7 @@ import { login, showAuthCard } from '../../redux/authAction.js'
 import { bindActionCreators } from 'redux'
 import { ProfileAvatar } from './ProfileAvatar.js'
 
-export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
+export const HeaderComponent = ({ login, showAuthCard, isAuth = true }) => {
 
   useEffect(() => {
     debugger
@@ -35,20 +35,9 @@ export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 }
 
 export const Header = connect(
-<<<<<<< HEAD
     null,
     (dispatch) => bindActionCreators({
-      // login: login,
+      login: login,
       showAuthCard: showAuthCard
     }, dispatch)
   )(HeaderComponent);
-=======
-  (state) => ({
-    isAuth: state.auth.isAuth
-  }),
-  (dispatch) => bindActionCreators({
-    showAuthCard: showAuthCard,
-    login: login
-  }, dispatch)
-)(HeaderComponent);
->>>>>>> 1a29cfa7844150355dea8d6ee05b8921f02b7855
