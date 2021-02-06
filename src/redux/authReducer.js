@@ -75,7 +75,7 @@ export const authReducer = (state = initialState, action) => {
         }
 
         case 'SHOW_AUTH_CARD': {
-
+    
             return {
                 ...state,
                 nameButton: action.payload,

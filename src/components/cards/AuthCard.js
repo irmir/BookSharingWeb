@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-import { Message } from '../common/Message.js'
+import { NavLink } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
-import { changeInputValue, showMessage, register, login } from '../../redux/authAction'
-import { useAuth } from '../../hooks/auth.hook.js'
+
+import { Button } from '../common/Button'
+import { Message } from '../../components/common/Message'
+
+import { changeInputValue, showMessage, login } from '../../redux/authAction'
 
 
-const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
-    loginUser, passwordUser, isCardActive, nameButton, urlImg, login,
-    textMessage, isMessage }) => {
+const AuthCardComponent = ({ changeInputValue, showMessage,
+    loginUser, passwordUser, isCardActive, nameButton, bgImg, login,
+    isMessage }) => {
+
+    debugger
 
     const { loading, request, error } = useHttp()
 
@@ -25,6 +29,7 @@ const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
     })
 
     const loginHandler = async (event) => {
+        debugger
         try {
             event.preventDefault()
             const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: loginUser, password: passwordUser })
@@ -41,44 +46,46 @@ const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
     }
 
     return (
-        <div className={isCardActive ? "auth-card active" : "auth-card"}
-            style={{
-                backgroundImage: `url(${urlImg})`,
-            }}>
-            <div className="inner">
-                <form>
-                    <div>
-                        <input type="email" name="login" placeholder="login" onChange={changeHandler} />
-                        <input type="password" name="password" placeholder="password" onChange={changeHandler} />
-                        <label id="forgot-password"><input type="checkbox" htmlFor="forgot-password" />
-                            {isMessage ?
-                                <span>{textMessage}</span>:
-                                <span>Forgot password</span>
-                            }
-                        </label>
-                    </div>
-                    <button disabled={loading} type="submit" placeholder="логин"
-                        onClick={nameButton === "Sign In" ? loginHandler : registerHandler}>{nameButton}</button>
-                </form>
-                <div className="social-block">
+        <>
+            {isCardActive &&
+                <div className="auth-card"
+                    style={{
+                        backgroundImage: `url(./img/${bgImg})`,
+                    }}>
+                    <div className="form">
+                        <form>
+                            <div>
+                                <input type="email" name="login" placeholder="Email/Phone" onChange={changeHandler} />
+                                <input type="password" name="password" placeholder="Password" onChange={changeHandler} />
+                                {isMessage ?
+                                    <Message />:
+                                    <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
+                                }
+                            </div>
+                            <Button disabled={loading ? "disabled" : false}
+                                onClick={nameButton === "Sign In" ? loginHandler : registerHandler}
+                                text={nameButton}
+                            />
+                        </form>
+                        <div className="social-block">
 
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <Message />
-        </div>
+            }
+            null
+        </>
+
     )
 }
 
 export const AuthCard = connect(
     (state) => ({
-        isAuth: state.auth.isAuth,
         loginUser: state.auth.login,
         passwordUser: state.auth.password,
         isCardActive: state.auth.isCardActive,
         nameButton: state.auth.nameButton,
-        urlImg: state.site.urlImg,
-        isError: state.auth.isError,
-        textMessage: state.auth.textMessage,
+        bgImg: state.site.bgImg,
         isMessage: state.auth.isMessage,
     }),
     (dispatch) => bindActionCreators({

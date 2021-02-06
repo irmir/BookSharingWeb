@@ -25,9 +25,9 @@ const MessageComponent = ({ textMessage, isMessage, hideMessage }) => {
     return (
         <>
         {isMessage && 
-            <div className="message">
+            <p className="error">
                 {textMessage}
-            </div>
+            </p>
         }
         </>
     )
