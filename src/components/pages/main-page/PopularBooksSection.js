@@ -1,6 +1,7 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-import { SliderBooks } from './SliderBooks.js'
+import { SliderBooks } from './SliderBooks'
 
 export const PopularBooksSection = () => {
 
@@ -8,7 +9,7 @@ export const PopularBooksSection = () => {
         <section className="popular-books">
             <div className="popular-books-header">
                 <h3>Popular Books</h3>
-                <button><span>View all</span></button>
+                <NavLink to="/"><span>View all</span></NavLink>
             </div>
             <SliderBooks />
         </section>

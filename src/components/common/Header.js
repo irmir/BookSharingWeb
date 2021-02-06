@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
-
-import { Menu } from './Menu.js'
-
-import { login, showAuthCard } from '../../redux/authAction.js'
 import { bindActionCreators } from 'redux'
-import { ProfileAvatar } from './ProfileAvatar.js'
 
-export const HeaderComponent = ({ login, showAuthCard, isAuth = true }) => {
+import { Menu } from './Menu'
+import { ProfileAvatar } from './ProfileAvatar'
+import { Button } from './Button.js'
+
+import { login, showAuthCard } from '../../redux/authAction'
+
+export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 
   useEffect(() => {
     debugger
@@ -15,7 +16,8 @@ export const HeaderComponent = ({ login, showAuthCard, isAuth = true }) => {
   })
 
   const clickHandler = useCallback((event) => {
-    showAuthCard(event.target.value)
+    debugger
+    showAuthCard(event.target.name)
   })
 
   return (
@@ -25,8 +27,8 @@ export const HeaderComponent = ({ login, showAuthCard, isAuth = true }) => {
         {isAuth ?
           <ProfileAvatar /> :
           <div className="auth-buttons">
-            <button onClick={clickHandler} value="Sign In" disabled={false} type="button">Sign in</button>
-            <button onClick={clickHandler} value="Sign Up" disabled={false}>Sign up</button>
+            <Button onClick={clickHandler} text="Sign In" name="Sign In"/>
+            <Button onClick={clickHandler} text="Sign Up" name="Sign Up"/>
           </div>
         }
       </div>

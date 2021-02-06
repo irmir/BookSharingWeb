@@ -1,21 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom';
 
 import { Logo } from './Logo';
-import { SocialNetwork } from './SocialNetwork.js'
-
-import { NavLink } from 'react-router-dom';
+import { SocialNetwork } from './SocialNetwork'
 
 const FooterComponent = ({ email }) => {
 
     return (
         <div className="footer">
-            <div className="wrapper container">
-                <button>
-                    <span>
-                        <NavLink to="/about">About us</NavLink>
-                    </span>
-                </button>
+            <div className="about-us container">
+                <NavLink to="/about" className="a-about">
+                    <span>About us</span>
+                </NavLink>
                 <div className="wrapper">
                     <Logo width="450" height="80" />
                     <SocialNetwork />

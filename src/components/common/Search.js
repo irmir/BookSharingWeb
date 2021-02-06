@@ -3,16 +3,18 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useHttp } from '../../hooks/http.hook'
 
+import {Button} from './Button'
+import { SearchCard } from '../cards/SearchCard'
+
 import { changeInputValue, showMessage } from '../../redux/authAction'
-import { getBook } from '../../redux/queryAction.js'
-import { SearchCard } from '../cards/SearchCard.js'
+import { getBook } from '../../redux/queryAction'
+
 
 const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardActive}) => {
 
     const {request, error} = useHttp()
 
     useEffect(() => {
-        debugger
         if (error) {
             showMessage(error)
         }
@@ -23,7 +25,6 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
     })
 
     const searchHandler = useCallback(async () => {
-        debugger
         const data = await request(`/api/books/search/${searchText}`)
         getBook(data)
     })
@@ -33,7 +34,10 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
             <input type="text" placeholder="Find Your Book Here"
                     onChange={changeHandler} name="searchText"></input>
         
-            <button onClick={searchHandler} className="parallelogram"><span>Search Book</span></button>
+            <Button onClick={searchHandler}
+                    className="parallelogram"
+                    text={<span>Search Book</span>}               
+            />
             {isSearchCardActive && <SearchCard />}
         </div>
     )

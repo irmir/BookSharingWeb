@@ -1,12 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { BookAvatar } from './BookAvatar'
 
-import { AuthCard } from '../cards/AuthCard.js'
-import { Counter } from './Counter.js'
-// import { siteReducer } from '../../redux/siteReducer'
-
-
+import { AuthCard } from '../cards/AuthCard'
+import { Counter } from './Counter'
 
 const SalutationComponent = ({ quote, authorQuote }) => {
 
