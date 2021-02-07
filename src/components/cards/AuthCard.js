@@ -6,12 +6,14 @@ import { useHttp } from '../../hooks/http.hook'
 
 import { Button } from '../common/Button'
 import { Message } from '../../components/common/Message'
+import { IconEyE } from '../../components/common/IconEyE'
 
 import { changeInputValue, showMessage, login } from '../../redux/authAction'
+import { showPass } from '../../redux/siteAction'
 
 
 const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
-    passwordUser, nameButton, bgImg, login, isMessage }) => {
+    passwordUser, nameButton, bgImg, login, isMessage, isShowPassword, showPass }) => {
 
     const { loading, request, error } = useHttp()    
     const authRef = useRef(null)
@@ -46,15 +48,20 @@ const AuthCardComponent = ({ changeInputValue, showMessage, loginUser,
         } catch (e) { }
     }
 
+    const showPassword = () => {
+        showPass()
+    }
+
     return (
         <div ref={authRef}
             className="auth-card"
             style={{ backgroundImage: `url(./img/${bgImg})` }}>
             <div className="form">
                 <form>
-                    <div>
+                    <div className="inputs">
                         <input type="email" name="login" placeholder="Email/Phone" onChange={changeHandler} />
-                        <input type="password" name="password" placeholder="Password" onChange={changeHandler} />
+                        <input type={isShowPassword ? "text": "password" } name="password" placeholder="Password" onChange={changeHandler} />
+                        <IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword}/>
                         {isMessage ? <Message /> :
                             <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
                         }
@@ -80,10 +87,12 @@ export const AuthCard = connect(
         nameButton: state.auth.nameButton,
         bgImg: state.site.bgImg,
         isMessage: state.auth.isMessage,
+        isShowPassword: state.site.isShowPassword
     }),
     (dispatch) => bindActionCreators({
-        changeInputValue: changeInputValue,
-        showMessage: showMessage,
-        login: login
+        changeInputValue,
+        showMessage,
+        login,
+        showPass,
     }, dispatch)
 )(AuthCardComponent)

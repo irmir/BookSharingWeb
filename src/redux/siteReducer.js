@@ -17,6 +17,7 @@ const initialState = {
                 {name: "Library 3", coord:[53.88384634856246, 27.55291502242655], id: 3, img: 'library.jpg'},
                 {name: "Library 4", coord:[53.91418973681132, 27.562871381914626], id: 4, img: 'library.jpg'}],
     location: {name: "Library 1", coord:[53.90033565666059, 27.552571699685583], id: 1, img: 'library.jpg'},
+    isShowPassword: false
 }
 
 export const siteReducer = (state = initialState, action) => {
@@ -24,7 +25,7 @@ export const siteReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'GET_DATA_LOCATION': {
-            debugger
+            
             console.log (action.payload)
             console.log (action.payload[1])
 
@@ -33,6 +34,14 @@ export const siteReducer = (state = initialState, action) => {
             return {
                 ...state,
                 location: location   
+            }
+        }
+
+        case 'SHOW_PASSWORD': {
+
+            return {
+                ...state,
+                isShowPassword: !state.isShowPassword
             }
         }
      
