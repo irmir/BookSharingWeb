@@ -5,14 +5,15 @@ import { useHttp } from '../../hooks/http.hook'
 
 import {Button} from './Button'
 import { SearchCard } from '../cards/SearchCard'
+import { Loader } from '../common/Loader'
 
 import { changeInputValue, showMessage } from '../../redux/authAction'
 import { getBook } from '../../redux/queryAction'
 
 
-const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardActive}) => {
+const SearchComponent = ({changeInputValue, getBook, searchText, searchContent}) => {
 
-    const {request, error} = useHttp()
+    const {request, error, loading} = useHttp()
 
     useEffect(() => {
         if (error) {
@@ -38,7 +39,8 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
                     className="parallelogram"
                     text={<span>Search Book</span>}               
             />
-            {isSearchCardActive && <SearchCard />}
+            {loading && <Loader />}
+            {searchContent && <SearchCard searchContent={searchContent}/>}
         </div>
     )
 }
@@ -46,7 +48,7 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
 export const Search = connect(
     (state) => ({
         searchText: state.auth.searchText,
-        isSearchCardActive: state.query.isSearchCardActive
+        searchContent: state.query.searchContent
     }),
     (dispatch) => bindActionCreators({
         changeInputValue: changeInputValue,

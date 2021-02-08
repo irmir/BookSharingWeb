@@ -181,6 +181,13 @@ header {
           color: $white06;
         }
     }
+    .loader {
+      position: absolute;
+      top: -13px;
+      right: 34%;
+      width: 60px;
+      height: 30px;
+    }
     button {
       width: 151px;
       height: 32px;
