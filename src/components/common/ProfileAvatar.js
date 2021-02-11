@@ -1,10 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { logout } from '../../redux/authAction.js'
+import { useHttp } from '../../hooks/http.hook.js'
 
-const ProfileAvatarComponent = ({ logout }) => {
+import { logout } from '../../redux/authAction.js'
+import { getUserData } from '../../redux/queryAction'
+
+const ProfileAvatarComponent = ({ logout, token, getUserData, nameUser, lastNameUser, img  }) => {
+
+    const {request} = useHttp()
+
+    useEffect(async() => {
+        const data = await request('/api/user', 'GET', {}, {Authorization: `Bearer ${token}`} )
+        getUserData(data)
+    })
 
     const logoutHandler = useCallback(() => {
         logout()
@@ -12,8 +22,8 @@ const ProfileAvatarComponent = ({ logout }) => {
     return (
         <div className="profile-avatar">
             <div className="name">
-                <p>Name</p>
-                <p>Last Name</p>
+                <p>{nameUser}</p>
+                <p>{lastNameUser}</p>
             </div>
             <div className="avatar">
                 <img src="./img/avatar.jpg" alt="name user"></img>
@@ -29,9 +39,14 @@ const ProfileAvatarComponent = ({ logout }) => {
 }
 
 export const ProfileAvatar = connect(
-    null,
+    (state) => ({
+        nameUser: state.query.nameUser,
+        lastNameUser: state.query.lastNameUser,
+        img: state.query.img
+    }),
     (dispatch) => bindActionCreators({
-        logout: logout
+        logout,
+        getUserData
     }, dispatch)
 )(ProfileAvatarComponent)
 

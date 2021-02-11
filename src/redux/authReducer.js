@@ -1,25 +1,13 @@
 const initialState = {
-    login: null,
-    password: null,
     token: null,
-    userId: null,
     isAuth: false,
     isCardActive: false,
-    nameButton: null,
-    isMessage: false,
-    textMessage: null,
+    nameButton: null
 }
 
 export const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
-
-        case 'CHANGE_INPUT_VALUE': {
-            return {
-                ...state,
-                [action.payload.target.name]: action.payload.target.value,
-            }
-        }
 
         case 'LOGIN': { 
             const data = JSON.parse(localStorage.getItem('userData'))
@@ -43,35 +31,9 @@ export const authReducer = (state = initialState, action) => {
                     isAuth: true,
                 }
             }
-             return {...state}
+
+            return {...state}
             
-        }
-
-        case 'LOGOUT': {
-            localStorage.clear()   
-
-            return {
-                ...state,
-                token: null,
-                isAuth: false
-            }
-        }
-
-        case 'SHOW_MESSAGE': {
-
-            return {
-                ...state,
-                isMessage: true,
-                textMessage: action.payload
-            }
-        }
-
-        case 'HIDE_MESSAGE': {
-
-            return {
-                ...state,
-                isMessage: false
-            }
         }
 
         case 'SHOW_AUTH_CARD': {
@@ -82,6 +44,16 @@ export const authReducer = (state = initialState, action) => {
                 isCardActive: true
             }
         }
+
+        case 'LOGOUT': {
+            localStorage.clear()   
+            
+            return {
+                ...state,
+                token: null,
+                isAuth: false
+            }
+        }        
 
         default: {
             return state

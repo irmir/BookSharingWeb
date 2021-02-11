@@ -10,13 +10,11 @@ import { login, showAuthCard } from '../../redux/authAction'
 
 export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 
-  useEffect(() => {
-    debugger
+  useEffect(() => { 
     login()
   })
 
   const clickHandler = useCallback((event) => {
-    debugger
     showAuthCard(event.target.name)
   })
 

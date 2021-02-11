@@ -7,9 +7,10 @@ import { useHttp } from '../../hooks/http.hook'
 import { Button } from '../common/Button'
 import { Message } from '../../components/common/Message'
 import { IconEyE } from '../../components/common/IconEyE'
+import { Input } from '../common/Input'
 
-import { changeInputValue, showMessage, login } from '../../redux/authAction'
-import { showPass } from '../../redux/siteAction'
+import {  login } from '../../redux/authAction'
+import { showPass, showMessage, changeInputValue  } from '../../redux/siteAction'
 
 
 const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
@@ -59,8 +60,8 @@ const AuthCardComponent = ({ changeInputValue, showMessage, loginUser,
             <div className="form">
                 <form>
                     <div className="inputs">
-                        <input type="email" name="login" placeholder="Email/Phone" onChange={changeHandler} />
-                        <input type={isShowPassword ? "text": "password" } name="password" placeholder="Password" onChange={changeHandler} />
+                        <Input onChange={changeHandler} type="email" name="login" placeholder="Email/Phone" />
+                        <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="password" placeholder="Password" />
                         <IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword}/>
                         {isMessage ? <Message /> :
                             <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
@@ -82,11 +83,11 @@ const AuthCardComponent = ({ changeInputValue, showMessage, loginUser,
 
 export const AuthCard = connect(
     (state) => ({
-        loginUser: state.auth.login,
-        passwordUser: state.auth.password,
+        loginUser: state.site.login,
+        passwordUser: state.site.password,
         nameButton: state.auth.nameButton,
         bgImg: state.site.bgImg,
-        isMessage: state.auth.isMessage,
+        isMessage: state.site.isMessage,
         isShowPassword: state.site.isShowPassword
     }),
     (dispatch) => bindActionCreators({

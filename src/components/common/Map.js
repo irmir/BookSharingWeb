@@ -3,8 +3,8 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {getDataLocation} from '../../redux/siteAction.js'
-import *as mapStyle from '../../css/mapStyle.js'
+import {getDataLocation} from '../../redux/queryAction'
+import { mapStyle } from '../../css/mapStyle'
 
 const containerStyle = {
     width: '100%',
@@ -22,13 +22,13 @@ const MapComponent = ({locations, getDataLocation}) => {
 
     return (
         <LoadScript preventGoogleFonts
-            googleMapsApiKey="AIzaSyDIFZ9Kro2Qbq-YY7_5IjZN_KhROwRxI4M"
+            googleMapsApiKey={process.env.REACT_APP_API_KEY}
         >
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={{lat: 53.903838, lng: 27.581298}}
                 zoom={13}
-                defaultOptions={{styles: mapStyle}}
+                options={{styles: mapStyle}}
             >
                 {
                     locations.map((library) => (
@@ -46,7 +46,7 @@ const MapComponent = ({locations, getDataLocation}) => {
 
 export const Map = connect(
     (state) => ({
-        locations: state.site.locations
+        locations: state.query.locations
     }),
     (dispatch) => bindActionCreators({
         getDataLocation

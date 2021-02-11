@@ -7,7 +7,7 @@ import {Button} from './Button'
 import { SearchCard } from '../cards/SearchCard'
 import { Loader } from '../common/Loader'
 
-import { changeInputValue, showMessage } from '../../redux/authAction'
+import { changeInputValue, showMessage } from '../../redux/siteAction'
 import { getBook } from '../../redux/queryAction'
 
 

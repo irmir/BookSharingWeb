@@ -1,4 +1,3 @@
-import { InfoWindow } from '@react-google-maps/api'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -18,6 +17,6 @@ const InfoLocationComponent = ({ location }) => {
 
 export const InfoLocation = connect(
     (state) => ({
-        location: state.site.location
+        location: state.query.location
     })
 )(InfoLocationComponent)
