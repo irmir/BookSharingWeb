@@ -1,0 +1,44 @@
+@import './utils.scss';
+
+.admin {
+    .auth-card {
+        width: 600px;
+        height: 400px;
+        margin: auto;
+            .form form {
+                height: 60%;
+            }
+            .forgot-password {
+                display: none;
+            }
+    }
+    .header {
+        height: 120px;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+        padding-right: 40px;
+            @extend .profile-avatar;
+            
+    }
+    .admin-panel {
+        display: flex;
+            ul.menu {
+                width: 20%;
+                margin: 0;
+                background-color: #d0c2aa;
+                color: #19232c;
+                list-style: none;
+                padding: 0;
+                height: 100vh;
+                    li {
+                        padding: 20px 20px 20px 40px;
+                        border-bottom: 1px solid #19232c;
+                        text-transform: uppercase;
+                        font-size: 24px;
+                    }
+            }
+            .content {
+                width: 80%;
+            }
+    }
+}
