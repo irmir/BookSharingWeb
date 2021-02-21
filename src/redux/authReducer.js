@@ -2,7 +2,7 @@ const initialState = {
     token: null,
     isAuth: false,
     isCardActive: false,
-    nameButton: null
+    nameButton: "Sign In"
 }
 
 export const authReducer = (state = initialState, action) => {

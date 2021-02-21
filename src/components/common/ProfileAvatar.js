@@ -11,10 +11,10 @@ const ProfileAvatarComponent = ({ logout, token, getUserData, nameUser, lastName
 
     const {request} = useHttp()
 
-    useEffect(async() => {
-        const data = await request('/api/user', 'GET', {}, {Authorization: `Bearer ${token}`} )
-        getUserData(data)
-    })
+    // useEffect(async() => {
+    //     const data = await request('/api/user', 'GET', {}, {Authorization: `Bearer ${token}`} )
+    //     getUserData(data)
+    // })
 
     const logoutHandler = useCallback(() => {
         logout()

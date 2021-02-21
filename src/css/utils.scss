@@ -34,6 +34,42 @@ $white03: rgba(255, 255, 255, 0.3);
     border: 0;
 }
 
+.profile-avatar {
+    position: absolute;
+    top: 38;
+    right: 0;
+    display: flex;
+    align-items: center;
+      .name {
+        text-align: center;
+        font-size: 18px;
+        line-height: 21px;
+        padding-right: 20px;
+          p {
+            margin: 0;
+          }
+          p:first-child {
+            padding-bottom: 4px;
+          }
+      }
+      .avatar {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid $white06;
+        margin-right: 25px;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+      }
+      .logout:hover path{
+        fill: #FFFFFF;    
+      }
+  }
+
 // @mixin btn ($width, $height, $bg, $color, $f-s, $l-h) {
 //     width: $width;
 //     height: $height;

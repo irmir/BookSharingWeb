@@ -15,7 +15,7 @@ import { showPass, showMessage, changeInputValue  } from '../../redux/siteAction
 
 const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
     passwordUser, nameButton, bgImg, login, isMessage, isShowPassword, showPass }) => {
-
+debugger
     const { loading, request, error } = useHttp()    
     const authRef = useRef(null)
 
