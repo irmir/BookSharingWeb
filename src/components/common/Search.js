@@ -3,16 +3,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useHttp } from '../../hooks/http.hook'
 
-import { changeInputValue, showMessage } from '../../redux/authAction'
-import { getBook } from '../../redux/queryAction.js'
-import { SearchCard } from '../cards/SearchCard.js'
+import {Button} from './Button'
+import { SearchCard } from '../cards/SearchCard'
+import { Loader } from '../common/Loader'
 
-const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardActive}) => {
+import { changeInputValue, showMessage } from '../../redux/siteAction'
+import { getBook } from '../../redux/queryAction'
 
-    const {request, error} = useHttp()
+
+const SearchComponent = ({changeInputValue, getBook, searchText, searchContent}) => {
+
+    const {request, error, loading} = useHttp()
 
     useEffect(() => {
-        debugger
         if (error) {
             showMessage(error)
         }
@@ -23,7 +26,6 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
     })
 
     const searchHandler = useCallback(async () => {
-        debugger
         const data = await request(`/api/books/search/${searchText}`)
         getBook(data)
     })
@@ -33,8 +35,12 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
             <input type="text" placeholder="Find Your Book Here"
                     onChange={changeHandler} name="searchText"></input>
         
-            <button onClick={searchHandler} className="parallelogram"><span>Search Book</span></button>
-            {isSearchCardActive && <SearchCard />}
+            <Button onClick={searchHandler}
+                    className="parallelogram"
+                    text={<span>Search Book</span>}               
+            />
+            {loading && <Loader />}
+            {searchContent && <SearchCard searchContent={searchContent}/>}
         </div>
     )
 }
@@ -42,7 +48,7 @@ const SearchComponent = ({changeInputValue, getBook, searchText, isSearchCardAct
 export const Search = connect(
     (state) => ({
         searchText: state.auth.searchText,
-        isSearchCardActive: state.query.isSearchCardActive
+        searchContent: state.query.searchContent
     }),
     (dispatch) => bindActionCreators({
         changeInputValue: changeInputValue,

@@ -4,14 +4,13 @@ import { NavLink } from 'react-router-dom'
 
 
 const MenuComponent = ({menuItems}) => {
-    // debugger
     return (
             <nav>
                 <ul>
                     {
                         menuItems.map((item) => (
                             <li>
-                                <NavLink exact={item.name === "home"} to={item.url}>
+                                <NavLink exact={item.name === "home"} to={item.name === "home" ? "/": `/${item.name}`}>
                                     {item.name} 
                                 </NavLink>
                             </li>

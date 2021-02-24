@@ -1,10 +1,25 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import {logout} from '../../redux/authAction.js'
+import { useHttp } from '../../hooks/http.hook.js'
 
-const ProfileAvatarComponent = ({logout}) => {
+import { logout } from '../../redux/authAction.js'
+import { setUserData } from '../../redux/userAction'
+
+const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, email }) => {
+debugger
+    const { request } = useHttp()
+
+    useEffect(() => {
+        const getUserData = async() =>{
+            debugger
+            const data = await request(`http://localhost:5100/api/users/${id}`, 'GET', null, { Authorization: `Bearer ${token}` })
+            debugger
+            setUserData(data)
+        }
+        getUserData()
+    }, [])
 
     const logoutHandler = useCallback(() => {
         logout()
@@ -12,16 +27,23 @@ const ProfileAvatarComponent = ({logout}) => {
     return (
         <div className="profile-avatar">
             <div className="name">
-                <p>Name</p>
-                <p>Last Name</p>
+                {
+                    nameUser ?
+                    <>
+                        <p>{nameUser}</p>
+                        {/* <p>{nameUser.lastName}</p> */}
+                    </>:
+                    <p>{email}</p>
+                }
+
             </div>
             <div className="avatar">
                 <img src="./img/avatar.jpg" alt="name user"></img>
             </div>
-            <div onClick={logoutHandler}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.25 19C11.25 18.5858 11.5858 18.25 12 18.25H18C18.1381 18.25 18.25 18.1381 18.25 18V6C18.25 5.86193 18.1381 5.75 18 5.75H12C11.5858 5.75 11.25 5.41421 11.25 5C11.25 4.58579 11.5858 4.25 12 4.25H18C18.9665 4.25 19.75 5.0335 19.75 6V18C19.75 18.9665 18.9665 19.75 18 19.75H12C11.5858 19.75 11.25 19.4142 11.25 19Z" fill="white" fill-opacity="0.6" />
-                    <path d="M15.6116 13.1151C15.6116 13.6674 15.1639 14.1151 14.6116 14.1151H9.75562C9.73269 14.4705 9.70399 14.8257 9.66951 15.1804L9.63985 15.4856C9.59162 15.9819 9.06466 16.279 8.61504 16.0636C6.78712 15.1875 5.13234 13.9888 3.73028 12.5249L3.70032 12.4936C3.43323 12.2147 3.43323 11.775 3.70032 11.4961L3.73028 11.4648C5.13234 10.0009 6.78712 8.80215 8.61504 7.92614C9.06466 7.71066 9.59162 8.00785 9.63985 8.50409L9.66951 8.80929C9.70399 9.16402 9.73269 9.51917 9.75562 9.87459L14.6116 9.8746C15.1639 9.8746 15.6116 10.3223 15.6116 10.8746V13.1151Z" fill="white" fill-opacity="0.6" />
+            <div onClick={logoutHandler} className="logout">
+                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 19l1-1h6V6h-6a1 1 0 010-2h6l2 2v12l-2 2h-6l-1-1z" fill="#fff" fill-opacity=".6" />
+                    <path d="M16 13l-1 1h-5v1l-1 1-5-3v-2l5-3 1 1v1h5l1 1v2z" fill="#fff" fill-opacity=".6" />
                 </svg>
             </div>
         </div>
@@ -29,9 +51,17 @@ const ProfileAvatarComponent = ({logout}) => {
 }
 
 export const ProfileAvatar = connect(
-    null,
+    (state) => ({
+        nameUser: state.query.nameUser,
+        lastNameUser: state.query.lastNameUser,
+        img: state.query.img,
+        token: state.auth.token,
+        id: state.auth.id,
+        email: state.user.email
+    }),
     (dispatch) => bindActionCreators({
-        logout: logout
+        logout,
+        setUserData,
     }, dispatch)
 )(ProfileAvatarComponent)
 

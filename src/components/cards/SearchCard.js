@@ -1,9 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
 import {NavLink} from 'react-router-dom'
 
-const SearchCardComponent = ({ searchContent }) => {
+export const SearchCard = ({ searchContent }) => {
 
     return (
         <div className="search-card">
@@ -19,9 +17,3 @@ const SearchCardComponent = ({ searchContent }) => {
         </div>
     )
 }
-
-export const SearchCard = connect(
-    (state) => ({
-        searchContent: state.query.searchContent
-    })
-)(SearchCardComponent)

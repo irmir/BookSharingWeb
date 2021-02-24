@@ -3,3 +3,7 @@ export const getBook = (data) => ({
     payload: data
 }) 
 
+export const getDataLocation = (data) => ({
+    type: 'GET_DATA_LOCATION',
+    payload: data
+})

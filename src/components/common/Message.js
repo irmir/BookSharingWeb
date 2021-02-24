@@ -1,44 +1,34 @@
 import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { hideMessage } from '../../redux/authAction.js'
 
-const MessageComponent = ({ textMessage, isMessage, hideMessage }) => {
+import { hideMessage } from '../../redux/siteAction'
 
-    debugger
+const MessageComponent = ({ textMessage, hideMessage }) => {
 
     const clickOutsideHandler = useCallback(() => {
         hideMessage()
     })
 
     useEffect(() => {
-        if (!isMessage) {
-            return 
-        }
-        debugger
         window.addEventListener('click', clickOutsideHandler, true)
 
         return () => window.removeEventListener('click', clickOutsideHandler, true)
     }, [clickOutsideHandler])
-    
+
 
     return (
-        <>
-        {isMessage && 
-            <div className="message">
-                {textMessage}
-            </div>
-        }
-        </>
+        <p className="error">
+            {textMessage}
+        </p>
     )
 }
 
 export const Message = connect(
     (state) => ({
-        textMessage: state.auth.textMessage,
-        isMessage: state.auth.isMessage,
+        textMessage: state.site.textMessage,
     }),
     (dispatch) => bindActionCreators({
-        hideMessage: hideMessage
+        hideMessage
     }, dispatch)
 )(MessageComponent)

@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-// import { Map } from '../../common/Map.js'
+import { Map } from '../../common/Map.js'
+import { InfoLocation } from '../../common/InfoLocation.js'
 
 
 export const Location = () => {
@@ -8,15 +8,9 @@ export const Location = () => {
     return (
         <div className="container">
             <div className="wrapper">
-                {/* <Map /> */}
-                <div className="info-block">
-                    
-            </div>
+                <Map />
+                <InfoLocation />
             </div>
         </div>
     )
 }
-
-// export const Location = connect(
-
-// )(LocationComponent)

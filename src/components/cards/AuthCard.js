@@ -1,17 +1,26 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-import {Message} from '../common/Message.js'
+import { NavLink } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
-import { changeInputValue, showMessage, register, login } from '../../redux/authAction'
-import { useAuth } from '../../hooks/auth.hook.js'
+
+import { Button } from '../common/Button'
+import { Message } from '../../components/common/Message'
+import { IconEyE } from '../../components/common/IconEyE'
+import { Input } from '../common/Input'
+
+import {  login } from '../../redux/authAction'
+import { showPass, showMessage, changeInputValue  } from '../../redux/siteAction'
 
 
-const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
-    loginUser, passwordUser, isCardActive, nameButton, urlImg, login }) => {
-    
-    const {loading, request, error} = useHttp()
+const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
+    passwordUser, passwordConfirm, nameButton, bgImg, login, isMessage, isShowPassword, showPass}) => {
+    const { loading, request, error } = useHttp()    
+    const authRef = useRef(null)
+
+    useEffect(() => {
+        authRef.current.scrollIntoView({ block: "center", behavior: "smooth" })
+    }, [])
 
     useEffect(() => {
         if (error) {
@@ -23,60 +32,79 @@ const AuthCardComponent = ({ changeInputValue, showMessage, isAuth,
         changeInputValue(event)
     })
 
-    const loginHandler = async (event) => {       
-        try{
+    const loginHandler = useCallback( async (event) => {
+        
+        try {
             event.preventDefault()
-            const data = await request('http://localhost:5100/api/auth/login', 'POST', {login:loginUser, password:passwordUser})
-           debugger
+            const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: loginUser, password: passwordUser })
             login(data)
-        } catch(e) {} 
-    }
+        } catch (e) { }
+    })
 
     const registerHandler = async (event) => {
-        try{
+        try {
             event.preventDefault()
-            const data = request('http://localhost:5100/api/auth/register', 'POST', {login:loginUser, password:passwordUser})
-        } catch(e) {}
-    } 
+            debugger
+            if (passwordConfirm === passwordUser) {
+                const data = await request('http://localhost:5100/api/auth/register', 'POST', { login: loginUser, password: passwordUser, passwordConfirm  })
+                login(data)
+            }
+        showMessage('Passwords do not match')
+        } catch (e) { }
+    }
+
+    const showPassword = () => {
+        showPass()
+    }
 
     return (
-        <div className={isCardActive ? "auth-card active" : "auth-card"}
-            style={{
-                backgroundImage: `url(${urlImg})`,
-            }}>
-            <div className="inner">
+        <div ref={authRef}
+            className="auth-card"
+            style={{ backgroundImage: `url(./img/${bgImg})` }}>
+            <div className="form">
                 <form>
-                    <div>
-                        <input type="email" name="login" placeholder="login" onChange={changeHandler} />
-                        <input type="password" name="password" placeholder="password" onChange={changeHandler} />
-                        
-                        <label id="forgot-password"><input type="checkbox" htmlFor="forgot-password"/><span>Forgot password</span></label>
+                    <div className="inputs">
+                        <Input onChange={changeHandler} type="email" name="login" placeholder="Email/Phone" />
+                        <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="password" placeholder="Password" />
+                        {
+                            nameButton === 'Sign Up' && 
+                            <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="passwordConfirm" placeholder="Confirn Password" />
+                            
+                        }
+                        <IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword}/>
+                        {isMessage ? <Message /> :
+                            <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
+                        }
                     </div>
-                    <button disabled={loading} type="submit" placeholder="логин" 
-                            onClick={ nameButton === "Sign In" ? loginHandler: registerHandler}>{nameButton}</button>
+                    <Button disabled={loading ? "disabled" : false}
+                        onClick={nameButton === "Sign In" ? loginHandler : registerHandler}
+                        text={nameButton}
+                    />
                 </form>
                 <div className="social-block">
-                
+
                 </div>
             </div>
-            <Message />
         </div>
     )
+
 }
 
 export const AuthCard = connect(
     (state) => ({
-        isAuth: state.auth.isAuth,
-        loginUser: state.auth.login,
-        passwordUser: state.auth.password,
-        isCardActive: state.auth.isCardActive,
+        loginUser: state.site.login,
+        passwordUser: state.site.password,
+        passwordConfirm: state.site.passwordConfirm,
         nameButton: state.auth.nameButton,
-        urlImg: state.site.urlImg,
-        isError: state.auth.isError
+        bgImg: state.site.bgImg,
+        isMessage: state.site.isMessage,
+        isShowPassword: state.site.isShowPassword,
+        token: state.auth.token
     }),
     (dispatch) => bindActionCreators({
-        changeInputValue: changeInputValue,
-        showMessage: showMessage,
-        login: login
+        changeInputValue,
+        showMessage,
+        login,
+        showPass
     }, dispatch)
 )(AuthCardComponent)

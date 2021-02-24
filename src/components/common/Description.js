@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { siteReducer } from '../../redux/siteReducer'
 
 const DescriptionComponent = ({descriptionSite}) => {
 
