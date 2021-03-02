@@ -7,11 +7,12 @@ export const useHttp = () => {
     const [error, setError] = useState(null)
 
     const request = useCallback(async(url, method = 'GET', body = null, headers = {}) => {
+        debugger
         setLoading(true)
         setError(null)
         
         try {
-            if (body) {
+            if (body && body.constructor.name !== "FormData") {
                 body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'
             }

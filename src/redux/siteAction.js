@@ -16,6 +16,15 @@ export const hideMessage = () => ({
     type: 'HIDE_MESSAGE'
 })
 
+export const checkUrl = () => ({
+    type: 'CHECK_URL'
+})
+
+export const changeDisabled = (name) => ({
+    type: 'CHANGE_DISABLED',
+    payload: name
+})
+
 
 
 

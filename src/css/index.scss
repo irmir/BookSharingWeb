@@ -5,6 +5,7 @@
 @import './utils.scss';
 @import './slider.scss';
 @import './adminPageStyle.scss';
+@import './account.scss';
 
 html {
   box-sizing: border-box;
@@ -23,6 +24,10 @@ body {
 
 input, button {
   outline: none;
+}
+
+p {
+  margin: 0;
 }
 
 button:hover {
@@ -131,16 +136,7 @@ header {
       line-height: 16px;
       margin-right: 38px;
       color: $white06;
-        &::-webkit-input-placeholder {
-          color: $white06;
-        }
-        &::-moz-placeholder {
-          color: $white06;
-        }
-        &:-moz-placeholder {
-          color: $white06;
-        }
-        &:-ms-input-placeholder {
+        @include placeholder {
           color: $white06;
         }
     }
