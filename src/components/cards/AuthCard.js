@@ -14,7 +14,7 @@ import { showPass, showMessage, changeInputValue  } from '../../redux/siteAction
 
 
 const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
-    passwordUser, passwordConfirm, nameButton, bgImg, login, isMessage, isShowPassword, showPass}) => {
+    passwordUser, nameButton, bgImg, login, isMessage, isShowPassword, showPass }) => {
     const { loading, request, error } = useHttp()    
     const authRef = useRef(null)
 
@@ -32,24 +32,19 @@ const AuthCardComponent = ({ changeInputValue, showMessage, loginUser,
         changeInputValue(event)
     })
 
-    const loginHandler = useCallback( async (event) => {
+    const loginHandler = async (event) => {
         
         try {
             event.preventDefault()
             const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: loginUser, password: passwordUser })
             login(data)
         } catch (e) { }
-    })
+    }
 
     const registerHandler = async (event) => {
         try {
             event.preventDefault()
-            debugger
-            if (passwordConfirm === passwordUser) {
-                const data = await request('http://localhost:5100/api/auth/register', 'POST', { login: loginUser, password: passwordUser, passwordConfirm  })
-                login(data)
-            }
-        showMessage('Passwords do not match')
+            const data = request('http://localhost:5100/api/auth/register', 'POST', { login: loginUser, password: passwordUser })
         } catch (e) { }
     }
 
@@ -66,11 +61,6 @@ const AuthCardComponent = ({ changeInputValue, showMessage, loginUser,
                     <div className="inputs">
                         <Input onChange={changeHandler} type="email" name="login" placeholder="Email/Phone" />
                         <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="password" placeholder="Password" />
-                        {
-                            nameButton === 'Sign Up' && 
-                            <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="passwordConfirm" placeholder="Confirn Password" />
-                            
-                        }
                         <IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword}/>
                         {isMessage ? <Message /> :
                             <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
@@ -94,17 +84,15 @@ export const AuthCard = connect(
     (state) => ({
         loginUser: state.site.login,
         passwordUser: state.site.password,
-        passwordConfirm: state.site.passwordConfirm,
         nameButton: state.auth.nameButton,
         bgImg: state.site.bgImg,
         isMessage: state.site.isMessage,
-        isShowPassword: state.site.isShowPassword,
-        token: state.auth.token
+        isShowPassword: state.site.isShowPassword
     }),
     (dispatch) => bindActionCreators({
         changeInputValue,
         showMessage,
         login,
-        showPass
+        showPass,
     }, dispatch)
 )(AuthCardComponent)

@@ -2,7 +2,8 @@ const initialState = {
     token: null,
     isAuth: false,
     isCardActive: false,
-    nameButton: "Sign In"
+    nameButton: "Sign In",
+    id: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -10,7 +11,7 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'LOGIN': { 
-            debugger
+            
             const data = JSON.parse(localStorage.getItem('userData'))
 
             if (data && data.token) {

@@ -8,14 +8,12 @@ import { logout } from '../../redux/authAction.js'
 import { setUserData } from '../../redux/userAction'
 
 const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, email }) => {
-debugger
+
     const { request } = useHttp()
 
     useEffect(() => {
         const getUserData = async() =>{
-            debugger
             const data = await request(`http://localhost:5100/api/users/${id}`, 'GET', null, { Authorization: `Bearer ${token}` })
-            debugger
             setUserData(data)
         }
         getUserData()

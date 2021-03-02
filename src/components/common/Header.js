@@ -7,13 +7,12 @@ import { ProfileAvatar } from './ProfileAvatar'
 import { Button } from './Button.js'
 
 import { login, showAuthCard } from '../../redux/authAction'
-// import { setUserData } from '../../redux/userAction'
 
 export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 
   useEffect(() => { 
     login()
-  }, [])
+  },[])
 
   const clickHandler = useCallback((event) => {
     showAuthCard(event.target.name)
@@ -36,13 +35,9 @@ export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 }
 
 export const Header = connect(
-    (state) => ({
-      token: state.auth.token,
-      isAuth: state.auth.isAuth
-}),
+    null,
     (dispatch) => bindActionCreators({
-      login,
-      showAuthCard,
-      // setUserData
+      login: login,
+      showAuthCard: showAuthCard
     }, dispatch)
   )(HeaderComponent);
