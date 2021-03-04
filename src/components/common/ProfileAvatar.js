@@ -25,15 +25,7 @@ const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, emai
     return (
         <div className="profile-avatar">
             <div className="name">
-                {
-                    nameUser ?
-                    <>
-                        <p>{nameUser}</p>
-                        {/* <p>{nameUser.lastName}</p> */}
-                    </>:
-                    <p>{email}</p>
-                }
-
+                <p>{nameUser || email}</p>
             </div>
             <div className="avatar">
                 <img src="./img/avatar.jpg" alt="name user"></img>
@@ -50,8 +42,7 @@ const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, emai
 
 export const ProfileAvatar = connect(
     (state) => ({
-        nameUser: state.query.nameUser,
-        lastNameUser: state.query.lastNameUser,
+        nameUser: state.user.nameUser,
         img: state.query.img,
         token: state.auth.token,
         id: state.auth.id,
