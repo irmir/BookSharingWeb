@@ -9,7 +9,7 @@ import { Button } from './Button.js'
 import { login, showAuthCard } from '../../redux/authAction'
 
 export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
-
+  
   useEffect(() => { 
     login()
   },[])
@@ -35,7 +35,9 @@ export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
 }
 
 export const Header = connect(
-    null,
+    (state) => ({
+      isAuth: state.auth.isAuth
+    }),
     (dispatch) => bindActionCreators({
       login: login,
       showAuthCard: showAuthCard
