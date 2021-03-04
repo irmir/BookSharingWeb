@@ -35,7 +35,7 @@ export const siteReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'CHANGE_INPUT_VALUE': {
-            debugger
+            
             return {
                 ...state,
                 [action.payload.target.name]: action.payload.target.value,
@@ -99,7 +99,9 @@ export const siteReducer = (state = initialState, action) => {
         }
 
         default: {
-            return state
+            return {
+                ...state
+            }
         }
     }
 }
