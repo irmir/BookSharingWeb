@@ -3,7 +3,8 @@ const initialState = {
     isAuth: false,
     isCardActive: false,
     nameButton: "Sign In",
-    id: null
+    id: null,
+    password: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -11,7 +12,7 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'LOGIN': { 
-            
+        
             const data = JSON.parse(localStorage.getItem('userData'))
 
             if (data && data.token) {
@@ -21,29 +22,34 @@ export const authReducer = (state = initialState, action) => {
                     token: data.token,
                     isAuth: true,
                     isCardActive: false,
-                    id: +data.id
+                    id: +data.id,
+                    password: data.password
                 }
             }
 
             if (action.payload) {
 
-                const decodToken = atob(action.payload.access_token.split('.')[1])
+                const decodToken = atob(action.payload.data.access_token.split('.')[1])
                 const userId = JSON.parse(decodToken)['sub'] 
 
-                const userData = JSON.stringify({id: userId, token: action.payload.access_token})
-    
+                const userData = JSON.stringify({
+                    id: userId, 
+                    token: action.payload.data.access_token, 
+                    password: action.payload.passwordUser
+                })
+
                 localStorage.setItem('userData', userData)        
                 return {
                     ...state,
-                    token: action.payload.access_token,
+                    token: action.payload.data.access_token,
                     isCardActive: false,
                     isAuth: true,
-                    id: +userId
+                    id: +userId,
+                    password: action.payload.passwordUser
                 }
             }
 
-            return {...state}
-            
+            return state
         }
 
         case 'SHOW_AUTH_CARD': {
