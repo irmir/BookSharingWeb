@@ -9,7 +9,7 @@ import { Button } from './Button.js'
 import { login, showAuthCard } from '../../redux/authAction'
 
 export const HeaderComponent = ({ login, showAuthCard, isAuth }) => {
-  
+
   useEffect(() => { 
     login()
   },[])
