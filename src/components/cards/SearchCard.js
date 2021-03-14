@@ -9,7 +9,7 @@ export const SearchCard = ({ searchContent }) => {
                 searchContent.map((book) => (
                     <div className="book">
                         <NavLink to={`/library/${book.id}`}>
-                            {book.title}
+                             <img src={`data:image/gif;base64,${book.cover}`}></img> 
                         </NavLink>
                     </div>
                 ))

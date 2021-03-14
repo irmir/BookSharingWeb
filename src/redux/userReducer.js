@@ -1,43 +1,93 @@
 const initialState = {
-    nameUser: null,
-    avatar: null,
-    email: null,
-    phoneNumber: null,
-    userTypeId: null
+    profileData: null,
+    formData: null,
+    newInputValue: null
 }
 
 export const userReducer = (state = initialState, action) => {
-    
-    switch(action.type) {
-        
+
+    switch (action.type) {
+
         case 'SET_USER_DATA': {
             debugger
-            const profileData = JSON.parse(localStorage.getItem('profileData'))
+            const data = JSON.parse(localStorage.getItem('profileData'))
 
-            if (profileData) {
+            if (data) {
 
                 return {
                     ...state,
-                    ...profileData
+                    profileData: data
                 }
             }
-            
-            debugger
-            console.log(action.payload)
-            
-            const newProfileData = {
-                nameUser: action.payload.nickname,
-                avatar: action.payload.avatar,
-                email: action.payload.email,
-                phoneNumber: action.payload.phoneNumber,
-                userTypeId: action.payload.userType.id,  
+
+            if (action.payload) {
+
+                const profileData = {
+                    nickName: action.payload.nickname,
+                    avatar: action.payload.avatar,
+                    email: action.payload.email,
+                    phoneNumber: action.payload.phoneNumber,
+                    userTypeId: action.payload.userType.id,
+                    // password: action.payload.password,
+                    // passwordConfirm: action.payload.password
+                }
+
+                localStorage.setItem('profileData', JSON.stringify(profileData))
+
+                return {
+                    ...state,
+                    profileData: profileData
+                }
             }
 
-            localStorage.setItem('profileData', JSON.stringify(newProfileData))
+            return state
+        }
+
+        case 'UPDATA_PROFILE_DATA': {
+            debugger
+            const key = action.payload.inputName
+            let value = action.payload.inputValue
+
+            if (key === "avatar") {
+                (async () => {
+                    function fileTobase64(file) {
+                        return new Promise(resolve => {
+                            const reader = new FileReader()
+                            reader.onload = () => resolve(reader.result)
+                            reader.readAsDataURL(file)
+                        })
+                    }
+                    value = await fileTobase64(value)
+                    console.log(value)
+
+                    const updatedProfileData = { ...state.profileData, [key]: value }
+                    localStorage.setItem('profileData', JSON.stringify(updatedProfileData))
+                    console.log('async', value)
+                    return {
+                        ...state,
+                        profileData: updatedProfileData
+                    }
+                })()
+            }
+
+            if (key === "avatar") {
+                value = URL.createObjectURL(value)
+            }
+
+            const updatedProfileData = { ...state.profileData, [key]: value }
+            localStorage.setItem('profileData', JSON.stringify(updatedProfileData))
+            return {
+                ...state,
+                profileData: updatedProfileData
+            }
+        }
+
+        case 'LOGOUT': {
 
             return {
                 ...state,
-                ...newProfileData           
+                profileData: null,
+                formData: null
             }
         }
 

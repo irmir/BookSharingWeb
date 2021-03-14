@@ -8,7 +8,7 @@ export const useHttp = () => {
     const request = useCallback(async(url, method = 'GET', body = null, headers = {}) => {
         setLoading(true)
         setError(null)
-
+        
         try {
             if (body && body.constructor.name !== "FormData") {
                 body = JSON.stringify(body)
@@ -16,13 +16,16 @@ export const useHttp = () => {
             }
 
             const response = await fetch(url, {method, body, headers})
+            if (response.statusText === "No Content") {
+                return true
+            }
             const data = await response.json()
 
             if (!response.ok) {
               throw new Error(data.title || "Oops!!!!!")
             }     
-            
-            setLoading(false)
+
+            setLoading(false) 
 
             return data
         } catch (e) {

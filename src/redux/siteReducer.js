@@ -9,11 +9,11 @@ const initialState = {
     authorQuote: "Joseph Addison",
     quoteAccount: ["The best cinema in the world is the brain,", "and you understand this when you read a good book."],
     authorQuoteAccount: "Ridley Scott",
-    formData: [{label: "", inputName: "name", type: "tex", placeholder: "Enter name", disabled: true},
+    inputs: [{label: "", inputName: "nickName", type: "tex", placeholder: "Enter name", disabled: true},
                {label: "Account ID", inputName: "id", type: "text", placeholder: "", disabled: true},
                {label: "Email", inputName: "email", type: "email", placeholder: "Enter e-mail", disabled: true},
-               {label: "Phone", inputName: "phone", type :"tel", placeholder: "Enter phone", disabled: true},
-               {label: "Password", inputName: "password", type: "password", placeholder: "", disabled: true},
+               {label: "Phone", inputName: "phoneNumber", type :"tel", placeholder: "Enter phone", disabled: true},
+            //    {label: "Password", inputName: "password", type: "password", placeholder: "", disabled: true},
             ],
     isDisable: true,
     bgImg: "booksharing-sign-in.jpg",
@@ -84,16 +84,16 @@ export const siteReducer = (state = initialState, action) => {
 
         case 'CHANGE_DISABLED': {
             debugger
-            const newFormDate = [...state.formData]
-            newFormDate.forEach(item => {
+            const inputs = [...state.inputs]
+            inputs.forEach(item => {
                 if (item.inputName === action.payload) {
-                    item.disabled = false
+                    item.disabled = !item.disabled
                 }
             })
 
             return {
                 ...state,
-                formData: newFormDate,
+                inputs: inputs,
                 isDisable: false
             }
         }

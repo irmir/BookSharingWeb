@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Input = ({type, name, placeholder, onChange, value, disabled, autoFocus,
      myref}) => {
-debugger
+
     return (
         <input onChange={onChange} 
                 type={type} 
