@@ -10,7 +10,7 @@ import { About } from '../components/pages/About'
 import { Footer } from '../components/common/Footer'
 import { connect } from 'react-redux'
 
-import bg from '../image/bg-account.jpg'
+import bg from '../image/bg-acount-header.jpg'
 
 
 const MainRoutesComponent = ({isAccountPage}) => {

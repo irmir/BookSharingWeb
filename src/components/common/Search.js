@@ -9,9 +9,10 @@ import { Loader } from '../common/Loader'
 
 import { changeInputValue, showMessage } from '../../redux/siteAction'
 import { getBook } from '../../redux/queryAction'
+import { Message } from './Message'
 
 
-const SearchComponent = ({changeInputValue, getBook, searchText, searchContent}) => {
+const SearchComponent = ({changeInputValue, getBook, searchText, searchContent, textMessage}) => {
 
     const {request, error, loading} = useHttp()
 
@@ -41,18 +42,23 @@ const SearchComponent = ({changeInputValue, getBook, searchText, searchContent})
             />
             {loading && <Loader />}
             {searchContent && <SearchCard searchContent={searchContent}/>}
+            <div class="error">
+                {textMessage && <Message textMessage={textMessage} />}
+            </div>            
         </div>
     )
 }
 
 export const Search = connect(
     (state) => ({
-        searchText: state.auth.searchText,
-        searchContent: state.query.searchContent
+        searchText: state.site.searchText,
+        searchContent: state.query.searchContent,
+        textMessage: state.site.textMessage
     }),
     (dispatch) => bindActionCreators({
-        changeInputValue: changeInputValue,
-        getBook: getBook,
+        changeInputValue,
+        getBook,
+        showMessage 
     }, dispatch)
 )(SearchComponent)
     

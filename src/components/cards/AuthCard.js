@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
@@ -9,90 +9,118 @@ import { Message } from '../../components/common/Message'
 import { IconEyE } from '../../components/common/IconEyE'
 import { Input } from '../common/Input'
 
-import {  login } from '../../redux/authAction'
-import { showPass, showMessage, changeInputValue  } from '../../redux/siteAction'
+import { login } from '../../redux/authAction'
+import { showPass, showMessage } from '../../redux/siteAction'
 
 
-const AuthCardComponent = ({ changeInputValue, showMessage, loginUser, 
-    passwordUser, nameButton, bgImg, login, isMessage, isShowPassword, showPass }) => {
-    const { loading, request, error } = useHttp()    
-    const authRef = useRef(null)
+const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login,
+	isMessage, isShowPassword, showPass }) => {
 
-    useEffect(() => {
-        authRef.current.scrollIntoView({ block: "center", behavior: "smooth" })
-    }, [])
+	const { loading, request, error } = useHttp()
 
-    useEffect(() => {
-        if (error) {
-            showMessage(error)
-        }
-    }, [error])
+	const authRef = useRef(null)
 
-    const changeHandler = useCallback((event) => {
-        changeInputValue(event)
-    })
+	useEffect(() => {
+		authRef.current.scrollIntoView({ block: "center", behavior: "smooth" })
+	}, [])
 
-    const loginHandler = async (event) => {
-        
-        try {
-            event.preventDefault()
-            const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: loginUser, password: passwordUser })
-            login(data)
-        } catch (e) { }
-    }
+	useEffect(() => {
+		if (error) {
+			showMessage(error)
+		}
+	}, [error])
 
-    const registerHandler = async (event) => {
-        try {
-            event.preventDefault()
-            const data = request('http://localhost:5100/api/auth/register', 'POST', { login: loginUser, password: passwordUser })
-        } catch (e) { }
-    }
+	const [form, setForm] = useState({
+		login: '',
+		password: '',
+		passwordConfirm: ''
+	})
 
-    const showPassword = () => {
-        showPass()
-    }
+	const onChange = useCallback((event) => {
+		setForm({ ...form, [event.target.name]: event.target.value })
+	})
 
-    return (
-        <div ref={authRef}
-            className="auth-card"
-            style={{ backgroundImage: `url(./img/${bgImg})` }}>
-            <div className="form">
-                <form>
-                    <div className="inputs">
-                        <Input onChange={changeHandler} type="email" name="login" placeholder="Email/Phone" />
-                        <Input onChange={changeHandler} type={isShowPassword ? "text": "password" } name="password" placeholder="Password" />
-                        <IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword}/>
-                        {isMessage ? <Message /> :
-                            <p><NavLink to="/" className="forgot-password"><span>Forgot password</span></NavLink></p>
-                        }
-                    </div>
-                    <Button disabled={loading ? "disabled" : false}
-                        onClick={nameButton === "Sign In" ? loginHandler : registerHandler}
-                        text={nameButton}
-                    />
-                </form>
-                <div className="social-block">
+	const loginHandler = useCallback(async (event) => {
+		debugger
+		try {
+			event.preventDefault()
+			const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: form.login, password: form.password })
+			login({ data, password: form.password })
+		} catch (e) { }
+	})
 
-                </div>
-            </div>
-        </div>
-    )
+	const registerHandler = async (event) => {
+		debugger
+		try {
+			event.preventDefault()
+
+			if (form.passwordConfirm === form.password) {
+				const data = await request('http://localhost:5100/api/auth/register', 'POST', { login: form.login, password: form.password, passwordConfirm: form.passwordConfirm })
+				login(data)
+			}
+			showMessage('Passwords do not match')
+		} catch (e) { }
+	}
+
+	const showPassword = () => {
+		showPass()
+	}
+
+	return (
+		<div ref={authRef}
+			className="auth-card"
+			style={{ backgroundImage: `url(./img/${bgImg})` }}>
+			<div className="form">
+				<form>
+					<div className="inputs">
+						<Input
+							onChange={onChange} type="email" name="login"
+							placeholder="Email/Phone" value={form.login} />
+						<Input
+							onChange={onChange} type={isShowPassword ? "text" : "password"}
+							name="password" placeholder="Password" value={form.password} />
+						{
+							!isLoginClick &&
+							<Input
+								onChange={onChange} type={isShowPassword ? "text" : "password"}
+								name="passwordConfirm" placeholder="Confirn Password"
+								value={form.passwordConfirm} />
+						}
+						<IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword} />
+						{isMessage ? <Message /> :
+							<p>
+								<NavLink to="/" className="forgot-password">
+									{isLoginClick && <span>Forgot password</span>}
+								</NavLink>
+							</p>
+						}
+					</div>
+					<Button disabled={loading ? "disabled" : false}
+						onClick={isLoginClick ? loginHandler : registerHandler}
+						text={nameButton}
+					/>
+				</form>
+				<div className="social-block">
+
+				</div>
+			</div>
+		</div>
+	)
 
 }
 
 export const AuthCard = connect(
-    (state) => ({
-        loginUser: state.site.login,
-        passwordUser: state.site.password,
-        nameButton: state.auth.nameButton,
-        bgImg: state.site.bgImg,
-        isMessage: state.site.isMessage,
-        isShowPassword: state.site.isShowPassword
-    }),
-    (dispatch) => bindActionCreators({
-        changeInputValue,
-        showMessage,
-        login,
-        showPass,
-    }, dispatch)
+	(state) => ({
+		nameButton: state.auth.nameButton,
+		isLoginClick: state.auth.isLoginClick,
+		bgImg: state.site.bgImg,
+		isMessage: state.site.isMessage,
+		isShowPassword: state.site.isShowPassword,
+		token: state.auth.token
+	}),
+	(dispatch) => bindActionCreators({
+		showMessage,
+		login,
+		showPass
+	}, dispatch)
 )(AuthCardComponent)

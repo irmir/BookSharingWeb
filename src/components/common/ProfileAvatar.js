@@ -7,36 +7,36 @@ import { useHttp } from '../../hooks/http.hook.js'
 import { logout } from '../../redux/authAction.js'
 import { setUserData } from '../../redux/userAction'
 
-const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, email }) => {
+import ava from '../../image/ava3.jpg'
+
+const ProfileAvatarComponent = ({ logout, setUserData, profileData, authData }) => {
 
     const { request } = useHttp()
-
+    debugger
     useEffect(() => {
-        const getUserData = async() =>{
-            const data = await request(`http://localhost:5100/api/users/${id}`, 'GET', null, { Authorization: `Bearer ${token}` })
-            setUserData(data)
+        if (!profileData) {
+            (async function getUserData() {
+                const data = await request(`http://localhost:5100/api/users/${authData.id}`, 'GET', null, { Authorization: `Bearer ${authData.token}` })
+                setUserData(data)
+            })()
         }
-        getUserData()
     }, [])
 
     const logoutHandler = useCallback(() => {
         logout()
     })
+
+    if (!profileData) {
+        return null
+    }
+
     return (
         <div className="profile-avatar">
             <div className="name">
-                {
-                    nameUser ?
-                    <>
-                        <p>{nameUser}</p>
-                        {/* <p>{nameUser.lastName}</p> */}
-                    </>:
-                    <p>{email}</p>
-                }
-
+                <p>{profileData.nickName || profileData.email}</p>
             </div>
             <div className="avatar">
-                <img src="./img/avatar.jpg" alt="name user"></img>
+                <img src={profileData.avatar ? `data:image/gif;base64,${profileData.avatar}`: ava} alt="name user"></img>
             </div>
             <div onClick={logoutHandler} className="logout">
                 <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,12 +50,8 @@ const ProfileAvatarComponent = ({ logout, token, setUserData, nameUser, id, emai
 
 export const ProfileAvatar = connect(
     (state) => ({
-        nameUser: state.query.nameUser,
-        lastNameUser: state.query.lastNameUser,
-        img: state.query.img,
-        token: state.auth.token,
-        id: state.auth.id,
-        email: state.user.email
+        profileData: state.user.profileData,
+        authData: state.auth.authData
     }),
     (dispatch) => bindActionCreators({
         logout,

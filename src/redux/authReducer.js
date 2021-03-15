@@ -1,69 +1,80 @@
 const initialState = {
-    token: null,
     isAuth: false,
     isCardActive: false,
     nameButton: "Sign In",
-    id: null
+    isLoginClick: false,
+    authData: null,
 }
 
 export const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case 'LOGIN': { 
-            
-            const data = JSON.parse(localStorage.getItem('userData'))
+        case 'LOGIN': {
+debugger
+            const data = JSON.parse(localStorage.getItem('authData'))
 
             if (data && data.token) {
 
                 return {
                     ...state,
-                    token: data.token,
                     isAuth: true,
-                    isCardActive: false,
-                    id: +data.id
+                    isCardActive: true,
+                    authData: data
                 }
             }
 
             if (action.payload) {
 
-                const decodToken = atob(action.payload.access_token.split('.')[1])
-                const userId = JSON.parse(decodToken)['sub'] 
+                const decodToken = atob(action.payload.data.access_token.split('.')[1])
+                const userId = JSON.parse(decodToken)['sub']
 
-                const userData = JSON.stringify({id: userId, token: action.payload.access_token})
-    
-                localStorage.setItem('userData', userData)        
+                const authData = {
+                    id: userId,
+                    token: action.payload.data.access_token,
+                    password: action.payload.password
+                }
+
+                localStorage.setItem('authData', JSON.stringify(authData))
                 return {
                     ...state,
-                    token: action.payload.access_token,
                     isCardActive: false,
                     isAuth: true,
-                    id: +userId
+                    authData: authData
                 }
             }
 
-            return {...state}
-            
+            return state
         }
 
         case 'SHOW_AUTH_CARD': {
-    
+
+            if (action.payload === "Sign In") {
+                return {
+                    ...state,
+                    isLoginClick: true,
+                    nameButton: action.payload,
+                    isCardActive: true
+                }
+            }
+
             return {
                 ...state,
                 nameButton: action.payload,
-                isCardActive: true
+                isCardActive: true,
+                isLoginClick: false
             }
         }
 
         case 'LOGOUT': {
-            localStorage.clear()   
-            
+            localStorage.clear()
+
             return {
                 ...state,
-                token: null,
+                authData: { ...state.authData, token: null },
                 isAuth: false
             }
-        }        
+        }
 
         default: {
             return state
