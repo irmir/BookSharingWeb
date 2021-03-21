@@ -34,7 +34,7 @@ const SearchComponent = ({changeInputValue, getBook, searchText, searchContent, 
     return (
         <div className="search">
             <input type="text" placeholder="Find Your Book Here"
-                    onChange={changeHandler} name="searchText"></input>
+                    onChange={changeHandler} name="searchText" className="search-input"></input>
         
             <Button onClick={searchHandler}
                     className="parallelogram"
