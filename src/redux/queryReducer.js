@@ -1,5 +1,6 @@
 const initialState = {
-    searchContent: null,
+    searchContent: [{rank: 0, id: 11},{rank: 3.5, id: 22},{rank: 2.5, id: 33},{rank: 2, id: 44},
+        {rank: 1, id: 55},{rank: 4, id: 66},{rank: 5, id: 77},{rank: 5, id: 88}],
     nameUser: null,
     img: null,
     lastNameUser: null,
@@ -8,7 +9,6 @@ const initialState = {
                 {name: "Library 3", coord:[53.88384634856246, 27.55291502242655], id: 3, img: 'library.jpg'},
                 {name: "Library 4", coord:[53.91418973681132, 27.562871381914626], id: 4, img: 'library.jpg'}],
     location: {name: "Library 1", coord:[53.90033565666059, 27.552571699685583], id: 1, img: 'library.jpg'},
-
 }
 
 export const queryReducer = (state = initialState, action) => {
