@@ -50,7 +50,7 @@ export const Rating = ({ rank, bookId }) => {
             {
                 goldStars && goldStars.map(item => (
                     <>
-                        <label For={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldStar})` }}>
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldStar})` }}>
                             <Input onChange={onChange}  type="radio" className="stars-input" id={`star-${item}-${bookId}`}
                                 value={item} key={item} name={`star-for-${bookId}`} />
                         </label>
@@ -60,7 +60,7 @@ export const Rating = ({ rank, bookId }) => {
             {
                 goldWhiteStars && goldWhiteStars.map(item => (
                     <>
-                        <label For={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldWhiteStar})` }}>
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldWhiteStar})` }}>
                             <Input onChange={onChange} type="radio" className="stars-input" id={`star-${item}-${bookId}`}
                                 value={item} key={item} name={`star-for-${bookId}`} />
                         </label>
@@ -70,7 +70,7 @@ export const Rating = ({ rank, bookId }) => {
             {
                 whiteStars && whiteStars.map(item => (
                     <>
-                        <label For={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${whiteStar})` }}>
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${whiteStar})` }}>
                             <Input onChange={onChange} type="radio" className="stars-input" id={`star-${item}-${bookId}`}
                                 value={item} key={item} name={`star-for-${bookId}`}  />
                         </label>
