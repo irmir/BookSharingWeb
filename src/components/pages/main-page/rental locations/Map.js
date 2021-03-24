@@ -3,8 +3,8 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {getDataLocation} from '../../redux/queryAction'
-import { mapStyle } from '../../css/mapStyle'
+import {getDataLocation} from '../../../../redux/queryAction'
+import { mapStyle } from '../../../../css/mapStyle'
 
 const containerStyle = {
     width: '100%',

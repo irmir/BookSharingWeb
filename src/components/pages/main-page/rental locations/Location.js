@@ -1,6 +1,6 @@
 import React from 'react'
-import { Map } from '../../common/Map.js'
-import { InfoLocation } from '../../common/InfoLocation.js'
+import { Map } from './Map.js'
+import { InfoLocation } from './InfoLocation.js'
 
 
 export const Location = () => {
