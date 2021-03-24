@@ -9,7 +9,7 @@ export const SearchCard = ({ searchContent }) => {
             {
                 searchContent.map((book) => (
                     <div className="book">
-                            <Book book={book} />
+                            <Book book={book} isRating={true} />
                     </div>
                 ))
             }
