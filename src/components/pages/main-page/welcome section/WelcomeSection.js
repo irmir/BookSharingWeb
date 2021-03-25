@@ -1,9 +1,9 @@
 import React from 'react'
-import { Description } from '../../common/Description.js'
 
-import {Logo} from '../../common/Logo.js'
-import { Salutation } from '../../common/Salutation.js'
-import { Search } from '../../common/Search.js'
+import { Description } from '../../../common/Description'
+import {Logo} from '../../../common/Logo'
+import { Salutation } from './Salutation'
+import { Search } from '../../../common/Search'
 
 export const WelcomeSection = () => {
 

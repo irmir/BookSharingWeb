@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
@@ -15,7 +15,8 @@ import { showPass, showMessage } from '../../redux/siteAction'
 
 const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login,
 	isMessage, isShowPassword, showPass }) => {
-
+		debugger
+	console.log('card render')
 	const { loading, request, error } = useHttp()
 
 	const authRef = useRef(null)
@@ -28,7 +29,7 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 		if (error) {
 			showMessage(error)
 		}
-	}, [error])
+	}, [error, showMessage])
 
 	const [form, setForm] = useState({
 		login: '',
@@ -36,18 +37,18 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 		passwordConfirm: ''
 	})
 
-	const onChange = useCallback((event) => {
+	const onChange = event => {
 		setForm({ ...form, [event.target.name]: event.target.value })
-	})
+	}
 
-	const loginHandler = useCallback(async (event) => {
+	const loginHandler = async (event) => {
 		debugger
 		try {
 			event.preventDefault()
 			const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: form.login, password: form.password })
 			login({ data, password: form.password })
 		} catch (e) { }
-	})
+	}
 
 	const registerHandler = async (event) => {
 		debugger

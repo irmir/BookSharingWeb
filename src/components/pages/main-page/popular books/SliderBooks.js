@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { getPrevSlide, getNextSlide } from '../../../redux/sliderAction.js'
-import { Button } from '../../common/Button.js'
+import { getPrevSlide, getNextSlide } from '../../../../redux/sliderAction.js'
+import { Button } from '../../../common/Button.js'
 // import {useHttp} from '../../../hooks/http.hook.js'
 
 const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) => {
@@ -18,15 +18,13 @@ const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) =>
 
     useEffect(() => {
         getNextSlide()
-    }, [])
+    }, [getNextSlide])
 
-    const prevSlide = useCallback(() => {
-        debugger
+    const prevSlide = () => {
         getPrevSlide()
-    })
+    }
 
     const nextSlide = () => {
-
         getNextSlide()
     }
 

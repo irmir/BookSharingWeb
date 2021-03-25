@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -20,11 +20,11 @@ const ProfileAvatarComponent = ({ logout, setUserData, profileData, authData }) 
                 setUserData(data)
             })()
         }
-    }, [])
+    }, [setUserData])
 
-    const logoutHandler = useCallback(() => {
+    const logoutHandler = () => {
         logout()
-    })
+    }
 
     if (!profileData) {
         return null

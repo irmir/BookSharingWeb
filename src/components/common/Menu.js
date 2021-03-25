@@ -9,7 +9,7 @@ const MenuComponent = ({menuItems}) => {
                 <ul>
                     {
                         menuItems.map((item) => (
-                            <li>
+                            <li key={item.id}>
                                 <NavLink exact={item.name === "home"} to={item.name === "home" ? "/": `/${item.name}`}>
                                     {item.name} 
                                 </NavLink>

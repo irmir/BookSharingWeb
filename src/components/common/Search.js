@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useHttp } from '../../hooks/http.hook'
@@ -22,19 +22,19 @@ const SearchComponent = ({changeInputValue, getBook, searchText, searchContent, 
         }
     }, [error])
 
-    const changeHandler = useCallback((event) => {
+    const changeHandler = (event) => {
         changeInputValue(event)
-    })
+    }
 
-    const searchHandler = useCallback(async () => {
+    const searchHandler = async () => {
         const data = await request(`/api/books/search/${searchText}`)
         getBook(data)
-    })
+    }
 
     return (
         <div className="search">
             <input type="text" placeholder="Find Your Book Here"
-                    onChange={changeHandler} name="searchText"></input>
+                    onChange={changeHandler} name="searchText" className="search-input"></input>
         
             <Button onClick={searchHandler}
                     className="parallelogram"
@@ -42,7 +42,7 @@ const SearchComponent = ({changeInputValue, getBook, searchText, searchContent, 
             />
             {loading && <Loader />}
             {searchContent && <SearchCard searchContent={searchContent}/>}
-            <div class="error">
+            <div className="error">
                 {textMessage && <Message textMessage={textMessage} />}
             </div>            
         </div>

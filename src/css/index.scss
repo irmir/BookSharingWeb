@@ -6,6 +6,8 @@
 @import './slider.scss';
 @import './adminPageStyle.scss';
 @import './account.scss';
+@import './search-card.scss';
+// @import './rating.scss';
 
 html {
   box-sizing: border-box;
@@ -24,6 +26,7 @@ body {
 
 input, button {
   outline: none;
+  border: 0;
 }
 
 p {
@@ -40,6 +43,11 @@ button:hover {
 }
 
 header {
+  &.page-bg {
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: right 0px bottom 0px;
+  }
   .header {
     height: 120px;
     display: flex;
@@ -126,7 +134,7 @@ header {
     text-align: center;
     margin-top: 38px;
     position: relative;
-    input {
+    .search-input {
       border: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 1);
       width: 475px;
@@ -166,30 +174,6 @@ header {
       @include parallelogram;
       }
   }
-}
-
-.search-card {
-  position: absolute;
-  width: 100%;
-  height: 627px;
-  margin-top: 22px;
-  padding: 55px 165px 55px 155px;
-  background: $beige;
-  border-radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  z-index: 3;
-    .book {
-      width: 152/1040*100%;
-      height: 152px;
-
-      border-radius: 5px;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-    }
 }
 
 .salutation {
@@ -342,7 +326,7 @@ header {
 }
 
 .auth-card input:-moz-placeholder {
-  color: rgba(25, 35, 44, 0.5);
+  color: rgba(156, 203, 245, 0.5);
 }
 
 // input[type="checkbox"] {
@@ -354,7 +338,6 @@ header {
 // }
 
 // .auth-card button {
-//   font-family: 'Chau Philomene One', sans-serif;
 //   background: linear-gradient(152.78deg, #D88E1F 10.95%, rgba(78, 119, 223, 0) 200.7%);
 //   filter: drop-shadow(0px 4px 10px rgba(25, 35, 44, 0.46));
 //   border-radius: 10px;

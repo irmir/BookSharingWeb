@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const BookAvatar = () => {
+export const Slider = ({ bookColection }) => {
 
     return (
         <div>

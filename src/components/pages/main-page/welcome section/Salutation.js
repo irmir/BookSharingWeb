@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { AuthCard } from '../cards/AuthCard'
+import { AuthCard } from '../../../cards/AuthCard'
 import { Counter } from './Counter'
 
 const SalutationComponent = ({ quote, authorQuote, isCardActive }) => {
@@ -13,7 +13,7 @@ const SalutationComponent = ({ quote, authorQuote, isCardActive }) => {
                 <p className="authorQuote">{authorQuote}</p>
             </div>
             <div className="picture">
-                <img src="/img/avatar-booksharing.png"></img>
+                <img src="/img/avatar-booksharing.png" alt="book sharing"></img>
             </div>
             {isCardActive && <AuthCard />}
             <Counter />

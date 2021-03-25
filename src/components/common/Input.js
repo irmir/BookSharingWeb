@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Input = ({type, name, placeholder, onChange, value, disabled, autoFocus,
-     myref}) => {
+     myref, className, id, title}) => {
 
     return (
         <input onChange={onChange} 
@@ -11,7 +11,10 @@ export const Input = ({type, name, placeholder, onChange, value, disabled, autoF
                 value={value} 
                 disabled={disabled}
                 autoFocus={autoFocus}
-                ref={myref}/>
+                ref={myref}
+                className={className}
+                id={id}
+                title={title}/>
     )
 
 }

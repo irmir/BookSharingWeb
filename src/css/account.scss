@@ -1,7 +1,19 @@
+.backround {
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: right 0px bottom 0px;
+  }
 .account {
     padding-bottom: 68px;
+    display: flex;
+    .page-bg {
+        
+        background-size: cover; 
+        background-repeat: no-repeat; 
+        background-position: right 0px bottom 0px;
+    }
     .account-card {
-        width: 720 / 1040 * 100%;
+        width: 65%;
         height: 500px;// временно
         background: linear-gradient(215.31deg, rgba(255, 255, 255, 0.1) -11.97%, rgba(92, 68, 46, 0.1) 104.49%);
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -10,7 +22,7 @@
                 background: black;
                 height: 105px;
                 padding-left: 218px;
-                padding-right: 124px;
+                padding-right: 114px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -23,12 +35,14 @@
                     p {
                         display: flex;
                         flex-direction: column;
-                    }
-                    p:nth-child(2) {
-                        text-align: right;
-                        font-size: 14px;
-                        line-height: 16px;
-                        padding-right: 4px;
+                        position: relative;
+                            span:last-child {
+                                position: absolute;
+                                bottom: -16px;
+                                right: 5px;
+                                font-size: 14px;
+                                line-height: 16px;
+                            }
                     }
                     .photo {
                         width: 105px;
@@ -43,6 +57,7 @@
                                 width: 100%;
                                 height: 100%;
                                 object-fit: cover;
+                                border-radius: 8px;
                             }
                             .avatar {
                                 position: absolute;
@@ -71,53 +86,234 @@
 
             }
             .data-account {
-                width: 60%;
-                // background-color: green;
                 padding: 20px 20px 30px 53px;
                 margin: 0;
                 color: #D0C2AA;
                     li:first-child {
-                        margin-bottom: 40px;
+                        margin-bottom: 20px;
+                            input {
+                                text-transform: uppercase;
+                            }
                     }
                     li {
                         list-style: none;
-                        display: flex;
-                        justify-content: space-between;
-                        width: 100%;
                         margin-bottom: 13px;
                         font-size: 16px;
                         text-transform: uppercase;
+                        display: flex;
                         align-items: center;
                             label {
-                                width: 29%;
+                                width: 111px;
+                                padding-right: 15px;
+                                display: inline-block;
                             }
                             input {
-                                border: 0;
+                                width: 246px;
                                 height: 25px;
+                                padding: 0 10px;
                                 font-size: 14px;
                                 line-height: 16px;
-                                margin-right: 38px;
                                 background: transparent;
                                 color: rgba(255, 255, 255, 0.6);
                                     @include placeholder {
-                                        color: rgb(208,194,170);
+                                        color: #D0C2AA;
                                     }
+                            }
+                            input.empty-input  {
+                                width: 133px;
+                                margin: 0 103px 0 10px;
+                                padding: 0;
+                                background: rgba(208, 194, 170, 0.08);
+                                box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
                             }
                             button {
                                 padding: 0;
-                                border: none;
                                 font-size: 12px;
                                 color: #FDAA3D;
                                 background-color: transparent;
                             }
-                            
-                    }
-
-                
+                    }  
             }
             .my-books {
                 border-top: 1px solid rgba(208,194,170,0.3);
+                position: relative;
+                    .tabs {
+                        position: absolute;
+                        top: -30px;
+                        right: 0;
+                            button {
+                                width: 113px;
+                                height: 30px;
+                                color: #D0C2AA;
+                                background: none;
+                            }
+                            .active-tab {
+                                background: linear-gradient(180deg, rgba(208, 194, 170, 0.1) 0%, #D0C2AA 100%);
+                                opacity: 0.25;
+                                filter: blur(1.25818px);
+                                border-top-left-radius: 5px;
+                                border-top-right-radius: 5px;
+                                border: 1px solid;
+
+border-image-source: linear-gradient(104.64deg, #D0C2AA 39.64%, rgba(208, 194, 170, 0) 104.29%);
+
+
+                            }
+                            p:nth-of-type(1) {
+                                left: 23px;
+                                top: 7px;
+                            }
+                            p:nth-of-type(2) {
+                                right: 35px;
+                                top: 7px;
+                            }
+                            .text-for-button {
+                                position: absolute;
+                                bottom: 0;
+                                top: 0;  
+                                color: #D0C2AA;
+                                font-size: 14px;
+                                line-height: 16px;
+                                text-transform: uppercase;
+                                pointer-events: none
+                            }
+                    }
+                    .slider {
+                        margin: 0 auto;
+                        
+                    }
             }
+    }
+    .account-book-info {
+        width: 35%;
+        // background-color: gray;
+        display: flex;
+            .book-image {
+                width: 57%;
+                margin-left: 7%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                    .lamp { 
+                        position: absolute;
+                        top: -86px;
+                            img {
+                                margin-left: 10px;
+                            }
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                top: -33px;
+                                left: 76px;
+                                width: 1.5px;
+                                height: 68px;                            
+                                background-color: #000;
+                            }
+                            &::after {
+                                content: "";
+                                top: 86px;
+                                right: 0;
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                background: linear-gradient(179.76deg, rgba(255, 255, 255, 0.3) 0.21%, rgba(255, 255, 255, 0) 82.41%);
+                                filter: blur(50px);
+                            }
+                            
+                    }
+                    .image {
+                        padding-top: 43px;
+                            a {
+                                display: block;
+                                width: 126px;
+                                height: 144px;
+                                filter: drop-shadow(20px 20px 20px rgba(0, 0, 0, 0.25));
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        border-radius: 5px;
+                                    }
+                            }
+
+                    }
+                    .shelf {
+                        width: 100%;
+                        overflow: hidden;
+                        margin-top: -47px;
+                            img {
+                                margin-right: 4px;
+                            }
+                    }
+            }
+            .book-info {
+                width: 43%;
+                text-align: center;
+                position: relative;
+                    .book-info-text {
+                        position: relative;
+                        z-index: 2;
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                            li {
+                                font-size: 12px;
+                                line-height: 14px;
+                            }
+                            li:first-child {
+                                font-size: 18px;
+                                line-height: 21px;
+                                border-bottom: 1px solid #FFFFFF;
+                            }
+                            li:nth-child(odd) {
+                                padding: 18px 0 10px;
+                                text-transform: uppercase;
+                                position: relative;
+                                    &:not(:first-child)::after {
+                                        content: '';
+                                        position: absolute;
+                                        height: 1px;
+                                        background-color: #FFFFFF;
+                                        width: 63%;
+                                        bottom: 0;
+                                        right: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, 0);
+
+                                    }
+                            }
+                            li:nth-child(even) {
+                                padding: 15px 0 10px;
+                            }
+                            li:nth-child(4) {
+                                font-family: Belleza;
+                                font-size: 13px;
+                                line-height: 15px;
+                                text-transform: capitalize;
+                                width: 57%;
+                                margin: 0 auto;
+                            }
+                            li:nth-child(6) {
+                                font-family: Belleza;
+                                font-size: 13px;
+                                line-height: 15px;
+                            }
+                    }
+                    .book-info-bg {
+                        position: absolute;
+                        top: 0;
+                        right: 50%;
+                        left: 50%;
+                        transform: translate(-50%, 0);
+                        width: 80%;
+                        z-index: 0;
+                        // margin: 0 auto;
+                        height: 377px;
+                        background: linear-gradient(359.12deg, rgba(0, 0, 0, 0.125) -26.85%, rgba(208, 194, 170, 0.156027) 84.08%, rgba(208, 194, 170, 0.5) 178.7%);
+                        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                    }
+            } 
     }
 }
 

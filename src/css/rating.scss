@@ -1,0 +1,29 @@
+.rating {
+    padding-top: 20px;
+    .stars-group {
+        width: 125px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+            .stars-input {
+                width: 1px;
+                height: 1px;
+                position:absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                appearance: none;
+            }
+            .stars-label {
+            background-size: 13px;
+            background-repeat: no-repeat;
+            position: relative;
+            width: 13px;
+            height: 13px;
+                &:hover {
+                    cursor: pointer;
+                }
+        } 
+    }
+    
+}

@@ -1,5 +1,6 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+
+import {Book} from '../common/Book'
 
 export const SearchCard = ({ searchContent }) => {
 
@@ -7,10 +8,8 @@ export const SearchCard = ({ searchContent }) => {
         <div className="search-card">
             {
                 searchContent.map((book) => (
-                    <div className="book">
-                        <NavLink to={`/library/${book.id}`}>
-                             <img src={`data:image/gif;base64,${book.cover}`}></img> 
-                        </NavLink>
+                    <div className="book" key={book.id}>
+                            <Book book={book} isRating={true} />
                     </div>
                 ))
             }
