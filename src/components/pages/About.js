@@ -1,10 +1,15 @@
 import React from 'react'
 
+import { Header } from '../common/Header'
+
 export const About = () => {
 
     return (
-        <div>
-            About
-        </div>
+        <>
+            <Header />
+            <div>
+                About
+            </div>
+        </>
     )
 }
