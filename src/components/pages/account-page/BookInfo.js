@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Book } from '../../common/Book';
 import { Rating } from '../../common/Rating'
 
 import testImg from '../../../image/testBook.jpg'
@@ -13,17 +12,16 @@ export const BookInfo = () => {
         <div className="account-book-info">
             <div className="book-image">
                 <div className="lamp">
-                    <img src={lamp} />
+                    <img src={lamp} alt="lamp" />
                 </div>
                 <div className="image">
-                    {/* <Book /> */}
-                    <a>
-                        <img src={testImg} />
+                    <a href="/">
+                        <img src={testImg} alt="" />
                     </a>
                     <div className="rating"><Rating rank='4.5' bookId='001' /></div>
                 </div>
                 <div className="shelf">
-                    <img src={shelf}/>
+                    <img src={shelf} alt="shelf"/>
                 </div>
             </div>
             <div className="book-info">

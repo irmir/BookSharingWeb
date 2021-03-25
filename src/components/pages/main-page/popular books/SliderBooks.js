@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
@@ -18,12 +18,11 @@ const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) =>
 
     useEffect(() => {
         getNextSlide()
-    }, [])
+    }, [getNextSlide])
 
-    const prevSlide = useCallback(() => {
-        debugger
+    const prevSlide = () => {
         getPrevSlide()
-    })
+    }
 
     const nextSlide = () => {
         getNextSlide()

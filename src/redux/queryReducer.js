@@ -1,6 +1,5 @@
 const initialState = {
-    searchContent: [{rank: 0, id: 11},{rank: 3.5, id: 22},{rank: 2.5, id: 33},{rank: 2, id: 44},
-        {rank: 1, id: 55},{rank: 4, id: 66},{rank: 5, id: 77},{rank: 5, id: 88}],
+    searchContent: null,
     nameUser: null,
     img: null,
     lastNameUser: null,

@@ -43,6 +43,11 @@ button:hover {
 }
 
 header {
+  &.page-bg {
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: right 0px bottom 0px;
+  }
   .header {
     height: 120px;
     display: flex;

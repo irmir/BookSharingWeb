@@ -6,7 +6,7 @@ const InfoLocationComponent = ({ location }) => {
     return (
         <div className="info-block">
             <div className="img">
-                <img src="./img/library.jpg" />
+                <img src="./img/library.jpg" alt={location.name} />
             </div>
             <div className="info">
                 {location.name}

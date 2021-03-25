@@ -35,7 +35,7 @@ export const Rating = ({ rank, bookId }) => {
         }
     }
 
-    const onChange = (event) => {   
+    const onChange = (event) => {
         console.log(event.target.value)
     }
 
@@ -46,35 +46,32 @@ export const Rating = ({ rank, bookId }) => {
     // }
 
     return (
-         <div className="stars-group">
+        <div className="stars-group">
             {
                 goldStars && goldStars.map(item => (
-                    <>
-                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldStar})` }}>
-                            <Input onChange={onChange}  type="radio" className="stars-input" id={`star-${item}-${bookId}`}
-                                value={item} key={item} name={`star-for-${bookId}`} />
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label"
+                            style={{ backgroundImage: `url(${goldStar})` }} key={item.toString()}>
+                            <Input onChange={onChange} type="radio" className="stars-input" id={`star-${item}-${bookId}`}
+                                value={item} name={`star-for-${bookId}`} />
                         </label>
-                    </>
                 ))
             }
             {
                 goldWhiteStars && goldWhiteStars.map(item => (
-                    <>
-                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${goldWhiteStar})` }}>
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label"
+                            style={{ backgroundImage: `url(${goldWhiteStar})` }} key={item.toString()}>
                             <Input onChange={onChange} type="radio" className="stars-input" id={`star-${item}-${bookId}`}
-                                value={item} key={item} name={`star-for-${bookId}`} />
+                                value={item} name={`star-for-${bookId}`} />
                         </label>
-                    </>
                 ))
             }
             {
                 whiteStars && whiteStars.map(item => (
-                    <>
-                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label" style={{ backgroundImage: `url(${whiteStar})` }}>
+                        <label htmlFor={`star-${item}-${bookId}`} className="stars-label"
+                            style={{ backgroundImage: `url(${whiteStar})` }} key={item.toString()}>
                             <Input onChange={onChange} type="radio" className="stars-input" id={`star-${item}-${bookId}`}
-                                value={item} key={item} name={`star-for-${bookId}`}  />
+                                value={item} name={`star-for-${bookId}`} />
                         </label>
-                    </>
                 ))
             }
         </div>

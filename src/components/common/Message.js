@@ -8,14 +8,13 @@ const MessageComponent = ({ textMessage, hideMessage }) => {
 
     const clickOutsideHandler = useCallback(() => {
         hideMessage()
-    })
+    },[hideMessage])
 
     useEffect(() => {
         window.addEventListener('click', clickOutsideHandler, true)
 
         return () => window.removeEventListener('click', clickOutsideHandler, true)
     }, [clickOutsideHandler])
-
 
     return (
         <p className="error">

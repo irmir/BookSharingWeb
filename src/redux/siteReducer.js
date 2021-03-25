@@ -1,5 +1,5 @@
 const initialState = {
-    menuItems: [{ name: 'home'}, { name: 'account' },{ name: 'settings'}, { name: 'library'}],
+    menuItems: [{ name: 'home', id: 1}, { name: 'account', id: 2 },{ name: 'settings', id: 3}, { name: 'library', id: 4}],
     descriptionSite: `The "Book Sharing" is a platform that people can visit to find and read books
     A lot of books.The main idea is a decentralized book rental network. 
     Books can be rented at one rental location and returned to another. 

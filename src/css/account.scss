@@ -1,6 +1,17 @@
+.backround {
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: right 0px bottom 0px;
+  }
 .account {
     padding-bottom: 68px;
     display: flex;
+    .page-bg {
+        
+        background-size: cover; 
+        background-repeat: no-repeat; 
+        background-position: right 0px bottom 0px;
+    }
     .account-card {
         width: 65%;
         height: 500px;// временно

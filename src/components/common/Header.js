@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -14,14 +14,14 @@ export const HeaderComponent = ({ login, setUserData, showAuthCard, isAuth }) =>
   useEffect(() => {
     login()
     setUserData()
-  }, [])
+  }, [login, setUserData])
 
-  const onClick = useCallback((event) => {
+  const onClick = (event) => {
     showAuthCard(event.target.name)
-  })
+  }
 
   return (
-    <header>
+    <header >
       <div className="header container">
         <Menu />
         {isAuth ?

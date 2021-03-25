@@ -11,7 +11,7 @@ export const Book = ({ book, isRating }) => {
     return (
         <>
             <NavLink to={`/library/${book.id}`}>
-                <img src={testBook} title={book.title} />
+                <img src={testBook}  alt={book.title} />
             </NavLink>
             {
                 isRating && <div className="rating"><Rating rank={book.rank} bookId={book.id} /></div>

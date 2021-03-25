@@ -13,7 +13,7 @@ const SalutationComponent = ({ quote, authorQuote, isCardActive }) => {
                 <p className="authorQuote">{authorQuote}</p>
             </div>
             <div className="picture">
-                <img src="/img/avatar-booksharing.png"></img>
+                <img src="/img/avatar-booksharing.png" alt="book sharing"></img>
             </div>
             {isCardActive && <AuthCard />}
             <Counter />

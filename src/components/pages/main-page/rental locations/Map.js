@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,10 +15,10 @@ const containerStyle = {
 
 const MapComponent = ({locations, getDataLocation}) => {
 
-    const clickMarker = useCallback((library) => () => {
+    const clickMarker = (library) => () => {
         debugger
         getDataLocation(library)
-    }) 
+    }
 
     return (
         <LoadScript preventGoogleFonts
