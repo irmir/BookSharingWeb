@@ -19,7 +19,7 @@ debugger
                 return {
                     ...state,
                     isAuth: true,
-                    isCardActive: true,
+                    isCardActive: false,
                     authData: data
                 }
             }

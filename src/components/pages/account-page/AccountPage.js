@@ -5,24 +5,21 @@ import { AccountCard } from './AccountCard'
 import { BookInfo } from './BookInfo'
 import { Header } from '../../common/Header'
 
-import bg from '../../../image/bg-account.jpg' 
+import bg from '../../../image/bg-account.jpg'
 
 const AccountPageComponent = ({ profileData }) => {
 
     return (
-        <>
-            {
-                profileData ?
-                    <div className="backround" style={{backgroundImage: `url(${bg})`}}>
-                        <Header />
+            <div className="backround" style={profileData && { backgroundImage: `url(${bg})` }}>
+                <Header />
+                {
+                    profileData ?
                         <section className="container account">
-                            <AccountCard profileData={profileData} />
+                            <AccountCard />
                             <BookInfo />
-                        </section>
-                    </div>: null
-            }
-
-        </>
+                        </section>: null
+                }
+            </div>
     )
 }
 

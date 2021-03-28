@@ -24,7 +24,7 @@ export const userReducer = (state = initialState, action) => {
 
                 const profileData = {
                     nickName: action.payload.nickname,
-                    avatar: action.payload.avatar,
+                    avatar: `data:image/gif;base64,${action.payload.avatar}`,
                     email: action.payload.email,
                     phoneNumber: action.payload.phoneNumber,
                     userTypeId: action.payload.userType.id,
@@ -59,7 +59,7 @@ export const userReducer = (state = initialState, action) => {
                     }
                     value = await fileTobase64(value)
                     console.log(value)
-
+                    debugger
                     const updatedProfileData = { ...state.profileData, [key]: value }
                     localStorage.setItem('profileData', JSON.stringify(updatedProfileData))
                     console.log('async', value)

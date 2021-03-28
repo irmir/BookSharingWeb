@@ -57,7 +57,7 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 
 			if (form.passwordConfirm === form.password) {
 				const data = await request('http://localhost:5100/api/auth/register', 'POST', { login: form.login, password: form.password, passwordConfirm: form.passwordConfirm })
-				login(data)
+				login({data, password: form.password})
 			}
 			showMessage('Passwords do not match')
 		} catch (e) { }

@@ -9,6 +9,7 @@ import { setUserData } from '../../redux/userAction'
 
 import ava from '../../image/ava3.jpg'
 
+
 const ProfileAvatarComponent = ({ logout, setUserData, profileData, authData }) => {
 
     const { request } = useHttp()
@@ -36,7 +37,7 @@ const ProfileAvatarComponent = ({ logout, setUserData, profileData, authData }) 
                 <p>{profileData.nickName || profileData.email}</p>
             </div>
             <div className="avatar">
-                <img src={profileData.avatar ? `data:image/gif;base64,${profileData.avatar}`: ava} alt="name user"></img>
+                <img src={profileData.avatar && profileData.avatar !== "data:image/gif;base64," ? profileData.avatar: ava} alt="avatar"></img>
             </div>
             <div onClick={logoutHandler} className="logout">
                 <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
