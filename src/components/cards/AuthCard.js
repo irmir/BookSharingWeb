@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
@@ -9,27 +9,20 @@ import { Message } from '../../components/common/Message'
 import { IconEyE } from '../../components/common/IconEyE'
 import { Input } from '../common/Input'
 
-import { login } from '../../redux/authAction'
-import { showPass, showMessage } from '../../redux/siteAction'
+import { hideAuthCard, login } from '../../redux/authAction'
+import { showPass } from '../../redux/siteAction'
 
 
-const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login,
-	isMessage, isShowPassword, showPass }) => {
-		debugger
-	console.log('card render')
-	const { loading, request, error } = useHttp()
+const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login, isShowPassword,
+	showPass, hideAuthCard }) => {
+
+	const { loading, request } = useHttp()
 
 	const authRef = useRef(null)
 
 	useEffect(() => {
 		authRef.current.scrollIntoView({ block: "center", behavior: "smooth" })
-	}, [])
-
-	useEffect(() => {
-		if (error) {
-			showMessage(error)
-		}
-	}, [error, showMessage])
+	})
 
 	const [form, setForm] = useState({
 		login: '',
@@ -41,35 +34,55 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 		setForm({ ...form, [event.target.name]: event.target.value })
 	}
 
+	const [error, setError] = useState(null)
+
 	const loginHandler = async (event) => {
-		debugger
+
 		try {
 			event.preventDefault()
 			const data = await request('http://localhost:5100/api/auth/login', 'POST', { login: form.login, password: form.password })
 			login({ data, password: form.password })
-		} catch (e) { }
+			
+		} catch (e) {
+			setError(e.message)
+		}
 	}
 
 	const registerHandler = async (event) => {
-		debugger
+debugger
 		try {
 			event.preventDefault()
 
 			if (form.passwordConfirm === form.password) {
 				const data = await request('http://localhost:5100/api/auth/register', 'POST', { login: form.login, password: form.password, passwordConfirm: form.passwordConfirm })
-				login({data, password: form.password})
+				login({ data, password: form.password })
 			}
 			showMessage('Passwords do not match')
-		} catch (e) { }
+		} catch (e) {
+			debugger
+			setError(e.message)
+		}
 	}
 
 	const showPassword = () => {
 		showPass()
 	}
 
+	const clickOutsideHandler = useCallback((event) => {
+		if ((event.target !== authRef.current) && !authRef.current.contains(event.target)) {
+			hideAuthCard()
+		}
+	}, [hideAuthCard])
+
+	useEffect(() => {
+		window.addEventListener('click', clickOutsideHandler, true)
+
+		return () => window.removeEventListener('click', clickOutsideHandler, true)
+	}, [clickOutsideHandler])
+
 	return (
 		<div ref={authRef}
-			className="auth-card"
+			className={window.location.pathname !== "/" ? "auth-card marker" : "auth-card"}
 			style={{ backgroundImage: `url(./img/${bgImg})` }}>
 			<div className="form">
 				<form>
@@ -88,18 +101,18 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 								value={form.passwordConfirm} />
 						}
 						<IconEyE className="eye" onClick={showPassword} isShowPassword={isShowPassword} />
-						{isMessage ? <Message /> :
+						{error ? <Message text={error} /> :
 							<p>
 								<NavLink to="/" className="forgot-password">
 									{isLoginClick && <span>Forgot password</span>}
 								</NavLink>
 							</p>
 						}
+						<Button disabled={loading ? "disabled" : false}
+							onClick={isLoginClick ? loginHandler : registerHandler}
+							text={nameButton}
+						/>
 					</div>
-					<Button disabled={loading ? "disabled" : false}
-						onClick={isLoginClick ? loginHandler : registerHandler}
-						text={nameButton}
-					/>
 				</form>
 				<div className="social-block">
 
@@ -107,7 +120,6 @@ const AuthCardComponent = ({ showMessage, nameButton, isLoginClick, bgImg, login
 			</div>
 		</div>
 	)
-
 }
 
 export const AuthCard = connect(
@@ -120,8 +132,8 @@ export const AuthCard = connect(
 		token: state.auth.token
 	}),
 	(dispatch) => bindActionCreators({
-		showMessage,
 		login,
-		showPass
+		showPass,
+		hideAuthCard
 	}, dispatch)
 )(AuthCardComponent)
