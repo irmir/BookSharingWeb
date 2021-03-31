@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 import { Logo } from './Logo';
 import { SocialNetwork } from './SocialNetwork'
+import { AuthCard } from '../cards/AuthCard'
 
-const FooterComponent = ({ email }) => {
+const FooterComponent = ({ email, isCardActive }) => {
 
     return (
         <div className="footer">
@@ -19,12 +20,14 @@ const FooterComponent = ({ email }) => {
                     <p><a href={`mailto:${email}`}>{email}</a></p>
                 </div>
             </div>
+            {isCardActive && <AuthCard />}
         </div>
     )
 }
 
 export const Footer = connect(
     (state) => ({
-        email: state.site.email
+        email: state.site.email,
+        isCardActive: state.auth.isCardActive
     })
 )(FooterComponent)

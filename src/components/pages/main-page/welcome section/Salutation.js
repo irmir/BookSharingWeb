@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { AuthCard } from '../../../cards/AuthCard'
 import { Counter } from './Counter'
 
-const SalutationComponent = ({ quote, authorQuote, isCardActive }) => {
+const SalutationComponent = ({ quote, authorQuote }) => {
 
     return (
         <div className="salutation">
@@ -15,7 +14,6 @@ const SalutationComponent = ({ quote, authorQuote, isCardActive }) => {
             <div className="picture">
                 <img src="/img/avatar-booksharing.png" alt="book sharing"></img>
             </div>
-            {isCardActive && <AuthCard />}
             <Counter />
         </div >
     )
@@ -26,6 +24,5 @@ export const Salutation = connect(
         quote: state.site.quote,
         authorQuote: state.site.authorQuote,
         description: state.site.description,
-        isCardActive: state.auth.isCardActive
     })
 )(SalutationComponent)
