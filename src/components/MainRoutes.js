@@ -7,25 +7,18 @@ import { LibraryPage } from '../components/pages/LibraryPage'
 import { SettingsPage } from '../components/pages/SettingsPage'
 import { About } from '../components/pages/About'
 import { Footer } from '../components/common/Footer'
-import { connect } from 'react-redux'
 
 
-const MainRoutesComponent = () => {
+export const MainRoutes = () => {
 
     return (
         <BrowserRouter>
-                <Route path="/" exact component={MainPage} />
-                <Route path="/account" component={AccountPage} />
-                <Route path="/library" component={LibraryPage} />
-                <Route path="/settings" component={SettingsPage} />
-                <Route path="/about" component={About} />
-                <Footer />
+            <Route path="/" exact component={MainPage} />
+            <Route path="/account" component={AccountPage} />
+            <Route path="/library" component={LibraryPage} />
+            <Route path="/settings" component={SettingsPage} />
+            <Route path="/about" component={About} />
+            <Footer />
         </BrowserRouter>
     )
 }
-
-export const MainRoutes = connect(
-    (state) => ({
-        isAccountPage: state.site.isAccountPage
-    })
-)(MainRoutesComponent)

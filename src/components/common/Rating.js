@@ -14,8 +14,7 @@ export const Rating = ({ rank, bookId }) => {
     const whiteStars = []
     let count = 0
 
-    debugger
-    if ((rank ^ 0) !== rank) {
+    if ((rank ^ 0) !== rank && rank !== undefined) {
         rank = Math.floor(rank)
         goldWhiteStars.push(rank + 1)
     }
@@ -36,7 +35,7 @@ export const Rating = ({ rank, bookId }) => {
     }
 
     const onChange = (event) => {
-        console.log(event.target.value)
+
     }
 
     // const onMouseOver = (event) => {

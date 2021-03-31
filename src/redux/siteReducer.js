@@ -34,14 +34,6 @@ export const siteReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case 'CHANGE_INPUT_VALUE': {
-            
-            return {
-                ...state,
-                [action.payload.target.name]: action.payload.target.value,
-            }
-        }
-
         case 'SHOW_PASSWORD': {
 
             return {
@@ -50,40 +42,8 @@ export const siteReducer = (state = initialState, action) => {
             }
         }
 
-        case 'SHOW_MESSAGE': {
-
-            return {
-                ...state,
-                isMessage: true,
-                textMessage: action.payload
-            }
-        }
-
-        case 'HIDE_MESSAGE': {
-
-            return {
-                ...state,
-                isMessage: false
-            }
-        }
-
-        case 'CHECK_URL': {
-            
-            if (window.location.pathname.includes('account' || 'library')) {
-                return {
-                    ...state,
-                    isAccountPage: true
-                }
-            }
-
-            return {
-                ...state
-            }
-        }
-     
-
         case 'CHANGE_DISABLED': {
-            debugger
+            
             const inputs = [...state.inputs]
             inputs.forEach(item => {
                 if (item.inputName === action.payload) {

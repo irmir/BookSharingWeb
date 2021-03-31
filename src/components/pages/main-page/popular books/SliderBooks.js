@@ -1,24 +1,29 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { getPrevSlide, getNextSlide } from '../../../../redux/sliderAction.js'
-import { Button } from '../../../common/Button.js'
-// import {useHttp} from '../../../hooks/http.hook.js'
+import { useHttp } from '../../../../hooks/http.hook'
 
-const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) => {
+import { Button } from '../../../common/Button'
+import { Book } from '../../../common/Book'
 
-    // const {queries} = useHttp()
+import { setPopularBooks, getPrevSlide, getNextSlide } from '../../../../redux/sliderAction.js'
 
-    // useEffect(() => {
-    //     const data = await queries('')
-    //     getNextSlide(data)
-    // }, [])
+
+const SliderBooksComponent = ({ count, setBook, setPopularBooks,
+    getNextSlide, getPrevSlide, popularBooks }) => {
+
+    const { request } = useHttp()
 
     useEffect(() => {
-        getNextSlide()
-    }, [getNextSlide])
+        if (!popularBooks) {
+            (async function getPopularBooks() {
+                const data = await request(`http://localhost:5100/api/books/popular?number=12`)
+                setPopularBooks(data)
+                getNextSlide()
+            })()
+        }
+    }, [])
 
     const prevSlide = () => {
         getPrevSlide()
@@ -35,24 +40,15 @@ const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) =>
                     <div className="container">
                         <div className="slider-slides">
                             <div className="side-book left">
-                                <NavLink alt="book" to="/">
-                                    {/* <img src="./img/book1.jpg" /> */}
-                                    <p>{setBook[0]}</p>
-                                </NavLink>
+                                <Book isRating={false} book={setBook[0]} />
                                 <Button onClick={prevSlide} disabled={count === 1 ? "disabled" : false} />
                             </div>
                             <div className="central-book">
-                                <NavLink alt="" to="/">
-                                    <p>{setBook[1]}</p>
-                                    {/* <img src="./img/book4.jpg" /> */}
-                                </NavLink>
+                                <Book isRating={false} book={setBook[1]} />
                             </div>
                             <div className="side-book right">
-                                <NavLink alt="" to="/" >
-                                    {/* <img src="./img/book3.jpg" /> */}
-                                    <p>{setBook[2]}</p>
-                                </NavLink>
-                                <Button text="" onClick={nextSlide} disabled={count === 20 ? "disabled" : false} />
+                                <Book isRating={false} book={setBook[2]} />
+                                <Button text="" onClick={nextSlide} disabled={count === 12 ? "disabled" : false} />
                             </div>
                         </div>
                         <div className="slider-arrows">
@@ -67,7 +63,7 @@ const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) =>
                                     </>
                                 }
                             />
-                            <Button className="next-btn" onClick={nextSlide} disabled={count === 20 ? "disabled" : false}
+                            <Button className="next-btn" onClick={nextSlide} disabled={count === 12 ? "disabled" : false}
                                 text={
                                     <>
                                         <span>
@@ -90,9 +86,11 @@ const SliderBooksComponent = ({ count, setBook, getNextSlide, getPrevSlide }) =>
 export const SliderBooks = connect(
     (state) => ({
         setBook: state.slider.setBook,
-        count: state.slider.count
+        count: state.slider.count,
+        popularBooks: state.slider.popularBooks
     }),
     (dispatch) => bindActionCreators({
+        setPopularBooks,
         getNextSlide,
         getPrevSlide
     }, dispatch)

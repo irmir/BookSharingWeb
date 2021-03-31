@@ -9,7 +9,7 @@ export const userReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'SET_USER_DATA': {
-            debugger
+
             const data = JSON.parse(localStorage.getItem('profileData'))
 
             if (data) {
@@ -36,7 +36,7 @@ export const userReducer = (state = initialState, action) => {
 
                 return {
                     ...state,
-                    profileData: profileData
+                    profileData: profileData,
                 }
             }
 
@@ -44,7 +44,7 @@ export const userReducer = (state = initialState, action) => {
         }
 
         case 'UPDATA_PROFILE_DATA': {
-            debugger
+
             const key = action.payload.inputName
             let value = action.payload.inputValue
 
@@ -58,11 +58,8 @@ export const userReducer = (state = initialState, action) => {
                         })
                     }
                     value = await fileTobase64(value)
-                    console.log(value)
-                    debugger
                     const updatedProfileData = { ...state.profileData, [key]: value }
                     localStorage.setItem('profileData', JSON.stringify(updatedProfileData))
-                    console.log('async', value)
                     return {
                         ...state,
                         profileData: updatedProfileData

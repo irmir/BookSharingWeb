@@ -11,3 +11,7 @@ export const showAuthCard = (nameButton) => ({
     type: 'SHOW_AUTH_CARD',
     payload: nameButton
 })
+
+export const hideAuthCard = () => ({
+    type: 'HIDE_AUTH_CARD'
+})
