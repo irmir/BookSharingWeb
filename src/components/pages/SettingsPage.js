@@ -7,9 +7,7 @@ export const SettingsPage = () => {
     return (
         <>
             <Header />
-            <div>
-                SettingsPage
-            </div>
+            <div className="empty-block"></div>
         </>
     )
 }

@@ -17,7 +17,7 @@ const AccountPageComponent = ({ profileData }) => {
                         <section className="container account">
                             <AccountCard />
                             <BookInfo />
-                        </section>: null
+                        </section>: <div className="empty-block"></div>
                 }
             </div>
     )

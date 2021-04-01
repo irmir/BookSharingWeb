@@ -7,9 +7,7 @@ export const About = () => {
     return (
         <>
             <Header />
-            <div>
-                About
-            </div>
+            <div className="empty-block"></div>
         </>
     )
 }

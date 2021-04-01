@@ -3,6 +3,9 @@
     background-repeat: no-repeat; 
     background-position: right 0px bottom 0px;
   }
+.empty-block {
+    height: 55vh;
+}
 .account {
     padding-bottom: 68px;
     display: flex;
@@ -85,7 +88,7 @@
                     }
 
             }
-            .data-account {
+            .account-data {
                 padding: 20px 20px 30px 53px;
                 margin: 0;
                 color: #D0C2AA;

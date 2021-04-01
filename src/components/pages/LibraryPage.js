@@ -7,9 +7,7 @@ export const LibraryPage = () => {
     return (
         <>
         <Header />
-        <div>
-            LibraryPage
-        </div>
+        <div className="empty-block"></div>
         </>
     )
 }
