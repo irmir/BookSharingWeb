@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -14,11 +14,11 @@ import ava from '../../../image/ava3.jpg'
 import { changeDisabled } from '../../../redux/siteAction'
 import { updateProfileData } from '../../../redux/userAction'
 
-const testBookColection = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+const testBookColection = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
     inputs, changeDisabled, authData, profileData, updateProfileData }) => {
-    debugger
+
     const { request } = useHttp()
 
     const formRef = useRef(null)
@@ -43,7 +43,6 @@ const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
 
     const [isDisable, setDisable] = useState(true)
     const [editInputName, setEditInputName] = useState(null)
-    const [isInputEmpty, setIsInputEmpty] = useState(true)
 
     useEffect(() => {
         if (!isDisable) {
@@ -52,7 +51,7 @@ const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
     }, [isDisable])
 
     const editUserData = (event) => {
-        debugger
+
         event.preventDefault()
         setDisable(!isDisable)
         setEditInputName(event.target.name)
@@ -68,37 +67,41 @@ const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
 
     const putUserAvatar = async (event) => {
         event.preventDefault()
-        
+
         const formData = createFormData(event.target.name, event.target.files[0])
         const result = await request(`http://localhost:5100/api/users/${authData.id}`, 'PUT', formData,
             { Authorization: `Bearer ${authData.token}` })
 
         if (result) {
             updateProfileData({
-                 inputName: event.target.name, 
-                 inputValue: event.target.files[0]})
+                inputName: event.target.name,
+                inputValue: event.target.files[0]
+            })
         } else {
             console.log('error')
         }
     }
 
     const putUserData = async (event) => {
-        debugger
+
+        if (event.type === "keypress" && event.key !== "Enter") {
+            return
+        }
+        
         event.preventDefault()
-        setIsInputEmpty(!isInputEmpty)
         setDisable(!isDisable)
 
         const inputName = event.target.name
         const inputValue = formRef.current.elements[inputName][0].value
 
-        const formData = createFormData(inputName, inputValue )
+        const formData = createFormData(inputName, inputValue)
 
         const result = await request(`http://localhost:5100/api/users/${authData.id}`, 'PUT', formData,
             { Authorization: `Bearer ${authData.token}` })
 
         if (result) {
-            debugger
-            updateProfileData({ inputName, inputValue})
+
+            updateProfileData({ inputName, inputValue })
             changeDisabled(inputName)
         } else {
             console.log('error')
@@ -141,13 +144,14 @@ const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
                 </div>
             </div>
             <form ref={formRef}>
-                <ul className="data-account">
+                <ul className="account-data">
                     {
                         inputs.map((item) => (
                             <li key={item.label.toString()}>
                                 <label>{item.label}</label>
-                                <Input onChange={onChange} name={item.inputName}
-                                    className={(profileData[item.inputName] === null && isInputEmpty) || !item.disabled ? "empty-input" : ""}
+                                <Input onChange={onChange} onKeyPress={putUserData}
+                                    name={item.inputName}
+                                    className={(profileData[item.inputName] === (null || "")) || !item.disabled ? "empty-input" : ""}
                                     value={item.inputName === "nickName" ? form.nickName :
                                         item.inputName === "id" ? authData.id :
                                             item.inputName === "phoneNumber" ? form.phoneNumber :
@@ -167,9 +171,9 @@ const AccountCardComponent = ({ quoteAccount, authorQuoteAccount,
             </form>
             <div className="my-books">
                 <div className="tabs">
-                    <Button onClick={onClick} className={isActiveTab ? "active-tab": ""} disabled={isActiveTab} />
+                    <Button onClick={onClick} className={isActiveTab ? "active-tab" : ""} disabled={isActiveTab} />
                     <p className="text-for-button">my books</p>
-                    <Button onClick={onClick} className={!isActiveTab ? "active-tab": ""} disabled={!isActiveTab} />
+                    <Button onClick={onClick} className={!isActiveTab ? "active-tab" : ""} disabled={!isActiveTab} />
                     <p className="text-for-button">liked</p>
                 </div>
                 <div className="slider">

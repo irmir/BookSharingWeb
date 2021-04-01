@@ -11,7 +11,7 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'LOGIN': {
-debugger
+            
             const data = JSON.parse(localStorage.getItem('authData'))
 
             if (data && data.token) {
@@ -63,6 +63,14 @@ debugger
                 nameButton: action.payload,
                 isCardActive: true,
                 isLoginClick: false
+            }
+        }
+
+        case 'HIDE_AUTH_CARD': {
+
+            return {
+                ...state,
+                isCardActive: false
             }
         }
 
