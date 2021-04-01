@@ -1,5 +1,6 @@
 const initialState = {
     searchContent: null,
+    isSearchCard: null,
     nameUser: null,
     img: null,
     lastNameUser: null,
@@ -19,6 +20,16 @@ export const queryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchContent: action.payload,
+                isSearchCard: true
+            }
+        }
+
+        case 'HIDE_SEARCH_CARD': {
+            
+            return {
+                ...state,
+                isSearchCard: false,
+                searchContent: null
             }
         }
 
