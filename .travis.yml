@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- 14
+install:
+- npm  install
+cache:
+  npm: false
+script:
+  - npm test
+  - npm start
+on:
+branches:
+  only:
+  - main
+  - develop
