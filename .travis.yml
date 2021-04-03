@@ -1,12 +1,13 @@
 language: node_js
 node_js:
 - 14
+
 install:
 - npm  install
-cache:
-  npm: false
+
 script:
-  - npm test
+  - npm build
+
 on:
 branches:
   only:
