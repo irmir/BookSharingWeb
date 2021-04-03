@@ -6,8 +6,7 @@ install:
 cache:
   npm: false
 script:
-  - npm test
-  - npm start
+  - npm run build
 on:
 branches:
   only:
